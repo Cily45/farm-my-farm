@@ -5,7 +5,7 @@ import javafx.animation.Timeline;
 import javafx.scene.control.Button;
 import javafx.util.Duration;
 import models.Land;
-import models.Player;
+import ect.Player;
 import models.Product;
 
 public class Carrot extends Vegetable {
@@ -68,7 +68,7 @@ public class Carrot extends Vegetable {
     }
 
     private void getharvest(){
-        Player.addProduct(product);
+        Player.getInstance().addProduct(product);
         land.removeCereal(this);
         land.getGridPane().getChildren().remove(carrotButton);
     }

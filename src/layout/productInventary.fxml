@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="220.0" prefWidth="222.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView layoutY="29.0" prefHeight="191.0" prefWidth="222.0">
+        <columns>
+          <TableColumn prefWidth="147.0" text="Produit" />
+          <TableColumn minWidth="0.0" prefWidth="76.0" text="Quantités" />
+        </columns>
+      </TableView>
+      <Label layoutX="45.0" layoutY="3.0" prefHeight="23.0" prefWidth="156.0" text="Sac de produit">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
