@@ -1,15 +1,10 @@
 package ect;
 
-import com.sun.tools.javac.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import save.SaveFarm;
 
 import java.io.IOException;
@@ -28,6 +23,9 @@ public class Menu {
     private Button saveButton;
 
     @FXML
+    private Button marketButton;
+
+    @FXML
     private Label money;
 
     private static Menu instance;
@@ -43,16 +41,18 @@ public class Menu {
     private void initialize() {
         refreshMoney();
         inventoryProductButton.setOnAction(event -> {
-            new ProductInventory().showModal();
+            new Inventory().showModal();
         });
-
-//        inventorySeedButton.setOnAction(event -> {
-//            new SeedInventory().showModal();
-//        });
 
         saveButton.setOnAction(event -> {
             SaveFarm.saveFarm();
         });
+
+        marketButton.setOnAction(event -> {
+            new MarketPlace().showModal();
+        });
+
+
     }
 
     public AnchorPane getAnchorPane() {

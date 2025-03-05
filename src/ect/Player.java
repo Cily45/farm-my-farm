@@ -85,14 +85,11 @@ public class Player {
     }
 
     public void setLand(Land land) {
+
         this.land = land;
     }
 
     public void setMoney(long money) {
-        this.money += money;
-    }
-
-    public void setMoneySaved(long money) {
         this.money = money;
     }
 

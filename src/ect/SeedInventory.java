@@ -66,10 +66,15 @@ public class SeedInventory {
         colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         initProductInventory();
         table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            plantButton.setOnAction(event -> {
-                plantSeed(newValue.getType());
-            });
-
+            if(newValue.getQuantity() > 0){
+                plantButton.setOnAction(event -> {
+                    plantSeed(newValue.getType());
+                    newValue.removeOneSeed();
+                    table.refresh();
+                    Stage stage = (Stage) table.getScene().getWindow();
+                    stage.close();
+                });
+            }
         });
 
     }

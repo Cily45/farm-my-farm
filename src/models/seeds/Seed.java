@@ -22,4 +22,12 @@ public class Seed {
     public int getPrice() {
         return price;
     }
+
+    public void setQuantity(int quantity) {
+        this.quantity += quantity;
+    }
+
+    public void removeOneSeed(){
+        quantity -= 1;
+    }
 }

@@ -9,9 +9,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class ReloadFarm {
     public static void ReloadFarm() {
@@ -29,7 +26,7 @@ public class ReloadFarm {
         if (!lines.isEmpty()) {
             String[] moneyLine = lines.get(0).split(": ");
             long money = Long.parseLong(moneyLine[1]);
-            Player.getInstance().setMoneySaved(money);
+            Player.getInstance().setMoney(money);
 
             ArrayList<String> vegetables = new ArrayList<>(lines.stream().filter(line -> line.contains("vegetable")).toList());
             ArrayList<String> products = new ArrayList<>(lines.stream().filter(line -> line.contains("product")).toList());

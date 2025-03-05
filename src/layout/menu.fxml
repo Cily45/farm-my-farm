@@ -8,17 +8,15 @@
 
 <AnchorPane fx:id="menuAnchorPane" prefHeight="200.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox fx:id="vbox" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="600.0">
+      <VBox fx:id="vbox" layoutX="5.0" layoutY="5.0" prefHeight="200.0" prefWidth="600.0">
          <children>
             <Pane prefHeight="200.0" prefWidth="600.0">
                <children>
                   <Label fx:id="money" layoutX="529.0" layoutY="19.0" text="500 FD" />
-                  <Button fx:id="inventoryProductButton" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Sac de produits" />
-                  <Button fx:id="inventorySeedButton" layoutX="14.0" layoutY="52.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Sac de graines" />
-                  <Button fx:id="inventoryAnimalButton" layoutX="14.0" layoutY="88.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Sac d'animaux" />
-                  <Button fx:id="saveButton" layoutX="14.0" layoutY="161.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Sauvegarde" />
-                  <Button fx:id="statButton" layoutX="14.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Stats" />
-                  <Button layoutX="514.0" layoutY="52.0" mnemonicParsing="false" prefWidth="72.0" text="Marché" />
+                  <Button fx:id="inventoryProductButton" layoutX="14.0" layoutY="24.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Sac de produits" />
+                  <Button fx:id="saveButton" layoutX="14.0" layoutY="154.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Sauvegarde" />
+                  <Button fx:id="statButton" layoutX="14.0" layoutY="112.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Stats" />
+                  <Button fx:id="marketButton" layoutX="14.0" layoutY="67.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Marché" />
                </children>
             </Pane>
          </children>

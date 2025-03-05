@@ -11,10 +11,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Product;
+import models.seeds.Seed;
 
 import java.io.IOException;
 
-public class ProductInventory {
+public class Inventory {
     @FXML
     private TableView<Product> table;
 
@@ -28,20 +29,30 @@ public class ProductInventory {
     private TableColumn<Product, String> colName;
     @FXML
     private TableColumn<Product, Integer> colQuantity;
+    @FXML
+    private TableView<Seed> table1;
+    @FXML
+    private TableColumn<Seed, String> colName1;
+    @FXML
+    private TableColumn<Seed, Integer> colQuantity1;
+    @FXML
+    private TableView<Product> table2;
+    @FXML
+    private TableColumn<Product, String> colName2;
+    @FXML
+    private TableColumn<Product, Integer> colQuantity2;
 
     public void showModal() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/productInventary.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/inventary.fxml"));
             Parent root = loader.load();
-
-            ProductInventory controller = loader.getController();
 
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
             modalStage.setTitle("Inventaire");
             modalStage.setScene(new Scene(root));
 
-            modalStage.showAndWait(); // On attend la fermeture de la fenêtre
+            modalStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,10 +60,8 @@ public class ProductInventory {
 
     @FXML
     public void initialize() {
-        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-
         initProductInventory();
+        initSeedInventory();
 
         table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             textField.setText(String.valueOf(newValue.getQuantity()));
@@ -67,7 +76,7 @@ public class ProductInventory {
                 if(quantity > newValue.getQuantity()) {
                     quantity = newValue.getQuantity();
                 }
-                Player.getInstance().setMoney((long) quantity * newValue.getPrice());
+                Player.getInstance().setMoney(Player.getInstance().getMoney() + ((long) quantity * newValue.getPrice()));
                 System.out.println((long) quantity * newValue.getPrice());
                 newValue.removeQuantity(quantity);
                 Menu.getInstance().refreshMoney();
@@ -78,6 +87,9 @@ public class ProductInventory {
         }
 
     private void initProductInventory() {
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
         ObservableList<Product> datas = FXCollections.observableArrayList();
 
         if (Player.getInstance().getProducts() != null) {
@@ -85,5 +97,18 @@ public class ProductInventory {
         }
 
         table.setItems(datas);
+    }
+
+    private void initSeedInventory() {
+        colName1.setCellValueFactory(new PropertyValueFactory<>("type"));
+        colQuantity1.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
+        ObservableList<Seed> datas = FXCollections.observableArrayList();
+
+        if (Player.getInstance().getProducts() != null) {
+            datas.addAll(Player.getInstance().getSeeds());
+        }
+
+        table1.setItems(datas);
     }
 }
