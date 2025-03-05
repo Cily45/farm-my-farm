@@ -12,4 +12,10 @@ public abstract class Vegetable {
     public abstract void growUp();
 
     public abstract Button getButton();
+
+    public abstract Long getElapsedTime();
+
+    public abstract int getActualStade();
+
+    public abstract String getType();
 }

@@ -6,9 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import save.SaveFarm;
 
 import java.io.IOException;
 
@@ -17,7 +19,16 @@ public class Menu {
     private AnchorPane menuAnchorPane;
 
     @FXML
-    private Button inventoryButton;
+    private Button inventoryProductButton;
+
+    @FXML
+    private Button inventorySeedButton;
+
+    @FXML
+    private Button saveButton;
+
+    @FXML
+    private Label money;
 
     private static Menu instance;
 
@@ -30,19 +41,17 @@ public class Menu {
 
     @FXML
     private void initialize() {
-        inventoryButton.setOnAction(event -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/productInventary.fxml"));
-                Parent root = loader.load();
+        refreshMoney();
+        inventoryProductButton.setOnAction(event -> {
+            new ProductInventory().showModal();
+        });
 
-                Stage modalStage = new Stage();
-                modalStage.initModality(Modality.APPLICATION_MODAL);
-                modalStage.setTitle("Inventaire");
-                modalStage.setScene(new Scene(root));
-                modalStage.showAndWait();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//        inventorySeedButton.setOnAction(event -> {
+//            new SeedInventory().showModal();
+//        });
+
+        saveButton.setOnAction(event -> {
+            SaveFarm.saveFarm();
         });
     }
 
@@ -57,7 +66,11 @@ public class Menu {
         }
     }
 
-    public Button getInventoryButton() {
-        return inventoryButton;
+    public Button getInventoryProductButton() {
+        return inventoryProductButton;
+    }
+
+    public void refreshMoney() {
+        money.setText(String.format("%d FD", Player.getInstance().getMoney()));
     }
 }

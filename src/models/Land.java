@@ -10,16 +10,15 @@ import java.util.ArrayList;
 public class Land {
     private int height;
     private int width;
-    private int size;
+    private int size = 30;
     private int countColumn;
     private int countRow;
     private GridPane gridPane;
-    private ArrayList<Vegetable> cereals = new ArrayList<>();
+    private ArrayList<Vegetable> vegetables = new ArrayList<>();
 
-    public Land(int x, int y, int size) {
+    public Land(int x, int y) {
         this.height = y;
         this.width = x;
-        this.size = size;
         this.countColumn = height/size;
         this.countRow = width/size;
         init();
@@ -49,8 +48,8 @@ public class Land {
         return countRow;
     }
 
-    public ArrayList<Vegetable> getCereals() {
-        return cereals;
+    public ArrayList<Vegetable> getVegetables() {
+        return vegetables;
     }
 
     private void init(){
@@ -69,10 +68,26 @@ public class Land {
     }
 
     public void addCereal(Vegetable cereal){
-        cereals.add(cereal);
+        vegetables.add(cereal);
     }
 
     public void removeCereal(Vegetable cereal){
-        cereals.remove(cereal);
+        vegetables.remove(cereal);
+    }
+
+    public String getProductsToString(){
+        StringBuilder sb = new StringBuilder();
+
+        for(Vegetable v : vegetables){
+            sb.append(String.format("vegetable, type: %s, actualStade: %d, elapsedTime: %d, x: %d, y: %d", v.getType(), v.getActualStade(), v.getElapsedTime(), v.getX(), v.getY())).append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    public boolean isFieldEmpty(int x , int y){
+        boolean isVegetable = vegetables.stream().anyMatch(vegetable -> vegetable.getX() == x && vegetable.getY() == y);
+
+        return !isVegetable;
     }
 }

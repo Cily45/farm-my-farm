@@ -1,6 +1,25 @@
 package models.seeds;
 
-public abstract class Seed {
-    public abstract int getPrice();
-    public abstract void plant();
+public class Seed {
+    private String type;
+    private int price;
+    private int quantity;
+
+    public Seed(String type, int price, int quantity) {
+        this.type = type;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public int getPrice() {
+        return price;
+    }
 }
