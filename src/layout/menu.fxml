@@ -13,10 +13,9 @@
             <Pane prefHeight="200.0" prefWidth="600.0">
                <children>
                   <Label fx:id="money" layoutX="529.0" layoutY="19.0" text="500 FD" />
-                  <Button fx:id="inventoryProductButton" layoutX="14.0" layoutY="24.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Sac de produits" />
-                  <Button fx:id="saveButton" layoutX="14.0" layoutY="154.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Sauvegarde" />
-                  <Button fx:id="statButton" layoutX="14.0" layoutY="112.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Stats" />
-                  <Button fx:id="marketButton" layoutX="14.0" layoutY="67.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Marché" />
+                  <Button fx:id="inventoryProductButton" layoutX="14.0" layoutY="36.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Inventaire" />
+                  <Button fx:id="saveButton" layoutX="14.0" layoutY="141.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Sauvegarde" />
+                  <Button fx:id="marketButton" layoutX="14.0" layoutY="88.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Marché" />
                </children>
             </Pane>
          </children>

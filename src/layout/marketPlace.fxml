@@ -43,7 +43,7 @@
                                 <TableView fx:id="table11" layoutX="9.0" layoutY="7.0" prefHeight="219.0"
                                            prefWidth="345.0">
                                     <columns>
-                                        <TableColumn fx:id="colName1" prefWidth="196.0" text="Graines"/>
+                                        <TableColumn fx:id="colName1" prefWidth="196.0" text="Animaux"/>
                                         <TableColumn fx:id="colQuantity1" prefWidth="69.0" text="Posséder"/>
                                         <TableColumn fx:id="colPrice1" minWidth="0.0" prefWidth="79.0" text="Prix"/>
                                     </columns>
