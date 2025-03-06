@@ -11,7 +11,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Product;
-import models.seeds.Seed;
+import models.StartOrganism;
+import models.animal.BabyAnimal;
+import models.vegetable.vegetable.Seed;
 
 import java.io.IOException;
 
@@ -36,11 +38,11 @@ public class Inventory {
     @FXML
     private TableColumn<Seed, Integer> colQuantity1;
     @FXML
-    private TableView<Product> table2;
+    private TableView<BabyAnimal> table2;
     @FXML
-    private TableColumn<Product, String> colName2;
+    private TableColumn<BabyAnimal, String> colName2;
     @FXML
-    private TableColumn<Product, Integer> colQuantity2;
+    private TableColumn<BabyAnimal, Integer> colQuantity2;
 
     public void showModal() {
         try {
@@ -62,29 +64,29 @@ public class Inventory {
     public void initialize() {
         initProductInventory();
         initSeedInventory();
+        initBabyAnimalInventory();
 
         table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             textField.setText(String.valueOf(newValue.getQuantity()));
             sellButton.setOnAction(event -> {
                 int quantity = 0;
-                try{
-                   quantity = Integer.parseInt(textField.getText());
-                }catch (Exception e){
+                try {
+                    quantity = Integer.parseInt(textField.getText());
+                } catch (Exception e) {
                     System.out.println("Erreur lors de la saisie");
                 }
 
-                if(quantity > newValue.getQuantity()) {
+                if (quantity > newValue.getQuantity()) {
                     quantity = newValue.getQuantity();
                 }
                 Player.getInstance().setMoney(Player.getInstance().getMoney() + ((long) quantity * newValue.getPrice()));
-                System.out.println((long) quantity * newValue.getPrice());
                 newValue.removeQuantity(quantity);
                 Menu.getInstance().refreshMoney();
                 table.refresh();
             });
         });
 
-        }
+    }
 
     private void initProductInventory() {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -110,5 +112,18 @@ public class Inventory {
         }
 
         table1.setItems(datas);
+    }
+
+    private void initBabyAnimalInventory() {
+        colName2.setCellValueFactory(new PropertyValueFactory<>("type"));
+        colQuantity2.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
+        ObservableList<BabyAnimal> datas = FXCollections.observableArrayList();
+
+        if (Player.getInstance().getProducts() != null) {
+            datas.addAll(Player.getInstance().getBabyAnimals());
+        }
+
+        table2.setItems(datas);
     }
 }

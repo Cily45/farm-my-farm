@@ -1,6 +1,6 @@
 import ect.Menu;
 import ect.Player;
-import ect.SeedInventory;
+import ect.StartOrganismInventory;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -53,7 +53,7 @@ public class Main extends Application {
             int[] pos = GridUtils.getGridPosition((int) event.getX(), (int) event.getY(), land.getSize());
 
             if(land.isFieldEmpty(pos[0], pos[1])){
-                new SeedInventory().showModal(pos[0], pos[1]);
+                new StartOrganismInventory().showModal(pos[0], pos[1]);
             }
 
 //            Vegetable carrot = new Carrot(land, pos[0], pos[1]);

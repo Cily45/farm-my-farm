@@ -39,8 +39,8 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="469.0" prefWidth="362.0">
                             <children>
                                 <TextField fx:id="textField1" layoutX="245.0" layoutY="232.0" prefHeight="25.0" prefWidth="39.0"/>
-                                <Button fx:id="buyButton1" layoutX="297.0" layoutY="232.0" mnemonicParsing="false" text="Acheter"/>
-                                <TableView fx:id="table11" layoutX="9.0" layoutY="7.0" prefHeight="219.0"
+                                <Button fx:id="buyButton1" layoutX="297.0" layoutY="232.0" mnemonicParsing="false" text="Accueillir"/>
+                                <TableView fx:id="table1" layoutX="9.0" layoutY="7.0" prefHeight="219.0"
                                            prefWidth="345.0">
                                     <columns>
                                         <TableColumn fx:id="colName1" prefWidth="196.0" text="Animaux"/>

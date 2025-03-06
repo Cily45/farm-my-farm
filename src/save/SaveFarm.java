@@ -16,6 +16,7 @@ public class SaveFarm {
         content.append(Player.getInstance().getProductsToString());
         content.append(land.getProductsToString());
         content.append(Player.getInstance().getSeedsToString());
+        content.append(Player.getInstance().getBabyAnimalsToString());
 
         try {
             FileWriter fileReader = new FileWriter(filePath);

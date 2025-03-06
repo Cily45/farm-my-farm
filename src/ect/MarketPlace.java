@@ -13,14 +13,22 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import models.Product;
-import models.seeds.Seed;
+import models.StartOrganism;
+import models.animal.BabyAnimal;
+import models.vegetable.vegetable.Seed;
 
 import java.io.IOException;
 
 public class MarketPlace {
     @FXML
     private TableView<Seed> table;
+    @FXML
+    private TableColumn<Seed, String> colName;
+    @FXML
+    private TableColumn<Seed, Integer> colQuantity;
+    @FXML
+    private TableColumn<Seed, Integer> colPrice;
+
 
     @FXML
     private TextField textField;
@@ -30,13 +38,19 @@ public class MarketPlace {
 
 
     @FXML
-    private TableView<Seed> table1;
+    private TableView<BabyAnimal> table1;
     @FXML
-    private TableColumn<Seed, String> colName;
+    private TableColumn<BabyAnimal, String> colName1;
     @FXML
-    private TableColumn<Seed, Integer> colQuantity;
+    private TableColumn<BabyAnimal, Integer> colQuantity1;
     @FXML
-    private TableColumn<Seed, Integer> colPrice;
+    private TableColumn<BabyAnimal, Integer> colPrice1;
+
+    @FXML
+    private TextField textField1;
+
+    @FXML
+    private Button buyButton1;
 
 
     public void showModal() {
@@ -58,6 +72,7 @@ public class MarketPlace {
     @FXML
     public void initialize() {
         initSeedInventory();
+        initBabyAnimalInventory();
 
         table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             buyButton.setOnAction(event -> {
@@ -79,6 +94,25 @@ public class MarketPlace {
             });
         });
 
+        table1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            buyButton1.setOnAction(event -> {
+                int quantity = 0;
+
+                try {
+                    quantity = Integer.parseInt(textField1.getText());
+                } catch (Exception e) {
+                    System.out.println("Erreur lors de la saisie");
+                }
+
+                if ((long) quantity * newValue.getPrice() > Player.getInstance().getMoney()) {
+                    quantity = (int) Math.floor((double) Player.getInstance().getMoney() / newValue.getPrice());
+                }
+                Player.getInstance().setMoney(Player.getInstance().getMoney() - ((long) quantity * newValue.getPrice()));
+                newValue.setQuantity(quantity);
+                Menu.getInstance().refreshMoney();
+                table1.refresh();
+            });
+        });
     }
 
 
@@ -93,5 +127,18 @@ public class MarketPlace {
         }
 
         table.setItems(datas);
+    }
+
+    private void initBabyAnimalInventory() {
+        colName1.setCellValueFactory(new PropertyValueFactory<>("type"));
+        colQuantity1.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        colPrice1.setCellValueFactory(new PropertyValueFactory<>("price"));
+        ObservableList<BabyAnimal> datas = FXCollections.observableArrayList();
+
+        if (Player.getInstance().getProducts() != null) {
+            datas.addAll(Player.getInstance().getBabyAnimals());
+        }
+
+        table1.setItems(datas);
     }
 }

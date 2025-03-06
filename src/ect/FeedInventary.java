@@ -14,40 +14,33 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Product;
-import models.seeds.Seed;
-import models.vegetable.Carrot;
-import models.vegetable.Vegetable;
+import models.animal.BabyAnimal;
+import models.vegetable.vegetable.Seed;
 
 import java.io.IOException;
 
-public class SeedInventory {
+public class FeedInventary {
     @FXML
-    private TableView<Seed> table;
+    private TableView<Product> table;
 
     @FXML
-    private TextField textField;
-
-    @FXML
-    private Button plantButton;
+    private Button feedButton;
 
     @FXML
     private TableColumn<Product, String> colName;
+
     @FXML
     private TableColumn<Product, Integer> colQuantity;
-
     private int x;
     private int y;
 
     public void showModal(int x1, int y1) {
         this.x = x1;
         this.y = y1;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/seedInventary.fxml"));
-            Parent root = loader.load();
 
-            SeedInventory controller = loader.getController();
-            controller.x = x1;
-            controller.y = y1;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/feedInventary.fxml"));
+            Parent root = loader.load();
 
             Stage modalStage = new Stage();
             modalStage.initModality(Modality.APPLICATION_MODAL);
@@ -62,37 +55,28 @@ public class SeedInventory {
 
     @FXML
     public void initialize() {
-        colName.setCellValueFactory(new PropertyValueFactory<>("type"));
-        colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         initProductInventory();
+
         table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue.getQuantity() > 0){
-                plantButton.setOnAction(event -> {
-                    plantSeed(newValue.getType());
-                    newValue.removeOneSeed();
-                    table.refresh();
-                    Stage stage = (Stage) table.getScene().getWindow();
-                    stage.close();
-                });
-            }
+            feedButton.setOnAction(event -> {
+                if (0 < newValue.getQuantity()) {
+                    newValue.removeQuantity(1);
+                    Menu.getInstance().refreshMoney();
+                    table.refresh();}
+
+            });
         });
 
     }
 
-    public void plantSeed(String type) {
-        switch (type) {
-            case "Carotte":
-                Vegetable carrot = new Carrot(Player.getInstance().getLand(), x, y);
-                Player.getInstance().getLand().getGridPane().add(carrot.getButton(), carrot.getX(), carrot.getY());
-                Player.getInstance().getLand().addCereal(carrot);
-        }
-    }
-
     private void initProductInventory() {
-        ObservableList<Seed> datas = FXCollections.observableArrayList();
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
+        ObservableList<Product> datas = FXCollections.observableArrayList();
 
         if (Player.getInstance().getProducts() != null) {
-            datas.addAll(Player.getInstance().getSeeds());
+            datas.addAll(Player.getInstance().getProducts());
         }
 
         table.setItems(datas);
