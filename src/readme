@@ -1,0 +1,21 @@
+#Farm My Farm 🚜
+
+##Présentation
+
+Farm My Farm est un jeu de simulation en JavaFX où vous incarnez un fermier gérant une petite exploitation agricole. Achetez des graines, cultivez vos champs, élevez des animaux et optimisez vos ressources pour faire prospérer votre ferme.
+
+##Fonctionnalités principales 🌾🐄💰
+
+Cultures : Achetez, plantez, récoltez et vendez différentes cultures.
+
+Élevage : Achetez et nourrissez des animaux pour collecter des ressources (lait, œufs, laine).
+
+Gestion financière : Suivez votre solde, achetez et vendez intelligemment.
+
+Interface interactive : PixelART, animations simples et tableaux de bord.
+
+Sauvegarde et évolution : Gestion du temps et progression dynamique.
+
+##Technologies utilisées 🛠️
+
+JavaFX pour l’interface graphique.
