@@ -2,20 +2,49 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="menuAnchorPane" prefHeight="200.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="menuAnchorPane" prefHeight="200.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox fx:id="vbox" layoutX="5.0" layoutY="5.0" prefHeight="200.0" prefWidth="600.0">
          <children>
             <Pane prefHeight="200.0" prefWidth="600.0">
                <children>
                   <Label fx:id="money" layoutX="529.0" layoutY="19.0" text="500 FD" />
-                  <Button fx:id="inventoryProductButton" layoutX="14.0" layoutY="36.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Inventaire" />
-                  <Button fx:id="saveButton" layoutX="14.0" layoutY="141.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Sauvegarde" />
-                  <Button fx:id="marketButton" layoutX="14.0" layoutY="88.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Marché" />
+                  <Button fx:id="inventoryProductButton" layoutX="374.0" layoutY="41.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0">
+                     <graphic>
+                             <ImageView fx:id="inventory" fitHeight="110.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                   <Image url="@../asset/sac.png" />
+                                </image>
+                             </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="saveButton" layoutX="225.0" layoutY="48.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0">
+                     <graphic>
+                        <ImageView fx:id="save" fitHeight="97.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/sauvegarde.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="marketButton" layoutX="47.0" layoutY="48.0" mnemonicParsing="false" prefHeight="88.0" prefWidth="122.0">
+                     <graphic>
+                        <ImageView fx:id="market" fitHeight="130.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../asset/marche.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+
+
+
                </children>
             </Pane>
          </children>

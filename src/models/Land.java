@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Land {
     private int height;
     private int width;
-    private int size = 30;
+    private int size = 120;
     private int countColumn;
     private int countRow;
     private GridPane gridPane;

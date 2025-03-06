@@ -27,6 +27,8 @@ public class Organism {
         this.name = name;
         this.actualStade = 0;
         this.button = new Button(stades[actualStade]);
+        initButton();
+        initTimeline();
     }
 
     public Organism(Land land, int actualStade, int elapsedTime, int x, int y) {
