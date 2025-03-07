@@ -1,15 +1,10 @@
-package ect;
+package models;
 
-import models.Land;
-import models.Product;
-import models.StartOrganism;
-import models.animal.Animal;
 import models.animal.BabyAnimal;
-import models.vegetable.vegetable.Carrot;
-import models.vegetable.vegetable.Corn;
-import models.vegetable.vegetable.Seed;
+import models.vegetable.vegetable.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Player {
     private long money = 500L;
@@ -17,6 +12,7 @@ public class Player {
     private ArrayList<Product> products = new ArrayList<>();
     private ArrayList<Seed> seeds = new ArrayList<>();
     private ArrayList<BabyAnimal> babyAnimals = new ArrayList<>();
+    private HashMap<String, Integer> stats = new HashMap<>();
 
     private Land land = null;
 
@@ -38,19 +34,46 @@ public class Player {
 
 
     public void initProducts() {
-        products.add(Carrot.getProduct());
-        products.add(Corn.getProduct());
-        products.add(Animal.getProduct());
-        System.out.println(Carrot.getProduct().getPrice());
+        if(products.isEmpty()) {
+            Product maize = new Product("Maïs", 40, 0);
+            products.add(maize);
+
+            Product sunflower = new Product("Tournesol", 20, 0);
+            products.add(sunflower);
+
+            Product wheat = new Product("Blé", 20, 0);
+            products.add(wheat);
+
+            Product blueberry = new Product("Myrtille", 20, 0);
+            products.add(blueberry);
+
+            Product milk = new Product("Lait", 20, 0);
+            products.add(milk);
+
+            Product wool = new Product("Laine", 20, 0);
+            products.add(wool);
+
+            Product egg = new Product("Oeuf", 20, 0);
+            products.add(egg);
+
+            Product manure = new Product("Fumier", 20, 0);
+            products.add(manure);
+        }
     }
 
     public void initStartOrganism() {
         if (seeds.isEmpty()) {
-            seeds.add(new Seed("Carotte", 10, 5));
-            seeds.add(new Seed("Maïs", 50, 5));
+            seeds.add(new Seed("Maïs", 40, 0));
+            seeds.add(new Seed("Tournesol", 20, 0));
+            seeds.add(new Seed("Myrtille", 30, 0));
+            seeds.add(new Seed("Blé", 10, 0));
         }
+
         if (babyAnimals.isEmpty()) {
-            babyAnimals.add(new BabyAnimal("Bébé animal", 10, 5));
+            babyAnimals.add(new BabyAnimal("Veau", 10, 0));
+            babyAnimals.add(new BabyAnimal("Oeuf", 10, 0));
+            babyAnimals.add(new BabyAnimal("Agneau", 10, 0));
+            babyAnimals.add(new BabyAnimal("Poulain", 10, 0));
         }
     }
 
@@ -86,15 +109,6 @@ public class Player {
         return sb.toString();
     }
 
-    public String getAnimalToString() {
-        StringBuilder sb = new StringBuilder();
-
-        for (StartOrganism s : seeds) {
-            sb.append(String.format("animal, name: %s, quantity: %d, price: %d", s.getType(), s.getQuantity(), s.getPrice())).append("\n");
-        }
-        return sb.toString();
-    }
-
     public Land getLand() {
         return land;
     }
@@ -108,7 +122,6 @@ public class Player {
     }
 
     public void setLand(Land land) {
-
         this.land = land;
     }
 
@@ -117,12 +130,30 @@ public class Player {
     }
 
     public void setSeeds(ArrayList<Seed> seeds) {
-
         this.seeds = seeds;
     }
-    public void setBabyAnimals(ArrayList<BabyAnimal> babyAnimals) {this.babyAnimals = babyAnimals;}
 
-    public void getAnimal(int x, int y) {
+    public void setBabyAnimals(ArrayList<BabyAnimal> babyAnimals) {
+        this.babyAnimals = babyAnimals;
+    }
 
+    public Product getProduct(String name) {
+        return products.stream().filter(product -> product.getName().equals(name)).findFirst().orElse(null);
+    }
+
+    public void initStats(){
+        stats.put("Achat de graine", 0);
+        stats.put("Achat de bébé animaux", 0);
+        stats.put("Vente de produit", 0);
+        stats.put("Farm dolars obtenu", 0);
+        stats.put("Plante mis en champs", 0);
+        stats.put("Animaux mis en élevage",0);
+    }
+
+    public void init(){
+        initStartOrganism();
+        initInventary();
+        initStats();
+        initProducts();
     }
 }

@@ -1,13 +1,14 @@
-package ect;
+package models;
 
+import controllers.Inventory;
+import controllers.MarketPlace;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import save.SaveFarm;
+import utils.save.SaveFarm;
 
-import javax.swing.text.html.ImageView;
 import java.io.IOException;
 
 public class Menu {
@@ -15,7 +16,7 @@ public class Menu {
     private AnchorPane menuAnchorPane;
 
     @FXML
-    private Button inventoryProductButton;
+    private Button inventoryButton;
 
     @FXML
     private Button inventorySeedButton;
@@ -41,7 +42,7 @@ public class Menu {
     @FXML
     private void initialize() {
         refreshMoney();
-        inventoryProductButton.setOnAction(event -> {
+        inventoryButton.setOnAction(event -> {
             new Inventory().showModal();
         });
 
@@ -58,7 +59,7 @@ public class Menu {
 
     public AnchorPane getAnchorPane() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/menu.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/menu.fxml"));
             loader.setController(this);
             return loader.load();
         } catch (IOException e) {
@@ -67,8 +68,8 @@ public class Menu {
         }
     }
 
-    public Button getInventoryProductButton() {
-        return inventoryProductButton;
+    public Button getInventoryButton() {
+        return inventoryButton;
     }
 
     public void refreshMoney() {

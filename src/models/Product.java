@@ -1,7 +1,5 @@
 package models;
 
-import java.util.ArrayList;
-
 public class Product {
     private String name;
     private int price;
@@ -26,8 +24,8 @@ public class Product {
         return price;
     }
 
-    public void addQuantity() {
-        quantity += 1;
+    public void addQuantity(int quantity) {
+        this.quantity += quantity;
     }
 
     public int getQuantity() {

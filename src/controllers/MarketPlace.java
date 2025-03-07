@@ -1,4 +1,4 @@
-package ect;
+package controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +13,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import models.StartOrganism;
+import models.Menu;
+import models.Player;
 import models.animal.BabyAnimal;
 import models.vegetable.vegetable.Seed;
 
@@ -36,13 +37,15 @@ public class MarketPlace {
     @FXML
     private Button buyButton;
 
-
     @FXML
     private TableView<BabyAnimal> table1;
+
     @FXML
     private TableColumn<BabyAnimal, String> colName1;
+
     @FXML
     private TableColumn<BabyAnimal, Integer> colQuantity1;
+
     @FXML
     private TableColumn<BabyAnimal, Integer> colPrice1;
 
@@ -55,7 +58,7 @@ public class MarketPlace {
 
     public void showModal() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/marketPlace.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/marketPlace.fxml"));
             Parent root = loader.load();
 
             Stage modalStage = new Stage();
@@ -107,6 +110,7 @@ public class MarketPlace {
                 if ((long) quantity * newValue.getPrice() > Player.getInstance().getMoney()) {
                     quantity = (int) Math.floor((double) Player.getInstance().getMoney() / newValue.getPrice());
                 }
+
                 Player.getInstance().setMoney(Player.getInstance().getMoney() - ((long) quantity * newValue.getPrice()));
                 newValue.setQuantity(quantity);
                 Menu.getInstance().refreshMoney();

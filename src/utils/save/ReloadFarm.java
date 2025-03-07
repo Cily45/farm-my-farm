@@ -1,11 +1,9 @@
-package save;
+package utils.save;
 
-import ect.Player;
+import models.Player;
 import models.Product;
 import models.animal.BabyAnimal;
-import models.vegetable.vegetable.Carrot;
-import models.vegetable.vegetable.Corn;
-import models.vegetable.vegetable.Seed;
+import models.vegetable.vegetable.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -35,25 +33,11 @@ public class ReloadFarm {
             ArrayList<String> seeds = new ArrayList<>(lines.stream().filter(line -> line.contains("seed")).toList());
             ArrayList<String> babyAnimals = new ArrayList<>(lines.stream().filter(line -> line.contains("babyAnimal")).toList());
 
-
             for (String line : vegetables) {
                 String[] splitLine = line.split(", ");
-
                 switch (infoString(splitLine[1])) {
-                    case "carrot":
-                        Carrot carrot = new Carrot(
-                                Player.getInstance().getLand(),
-                                infoInt(splitLine[2]),
-                                infoInt(splitLine[3]),
-                                infoInt(splitLine[4]),
-                                infoInt(splitLine[5])
-                        );
-
-                        Player.getInstance().getLand().getGridPane().add(carrot.getButton(), carrot.getX(), carrot.getY());
-                        Player.getInstance().getLand().addOrgganism(carrot);
-
-                    case "corn":
-                        Corn corn = new Corn(
+                    case "Maïs":
+                        Maize corn = new Maize(
                                 Player.getInstance().getLand(),
                                 infoInt(splitLine[2]),
                                 infoInt(splitLine[3]),
@@ -63,9 +47,50 @@ public class ReloadFarm {
 
                         Player.getInstance().getLand().getGridPane().add(corn.getButton(), corn.getX(), corn.getY());
                         Player.getInstance().getLand().addOrgganism(corn);
+                        break;
+
+                    case "Blé":
+                        Wheat wheat = new Wheat(
+                                Player.getInstance().getLand(),
+                                infoInt(splitLine[2]),
+                                infoInt(splitLine[3]),
+                                infoInt(splitLine[4]),
+                                infoInt(splitLine[5])
+                        );
+
+                        Player.getInstance().getLand().getGridPane().add(wheat.getButton(), wheat.getX(), wheat.getY());
+                        Player.getInstance().getLand().addOrgganism(wheat);
+                        break;
+
+                    case "Myrtille":
+                        Blueberry blueberry = new Blueberry(
+                                Player.getInstance().getLand(),
+                                infoInt(splitLine[2]),
+                                infoInt(splitLine[3]),
+                                infoInt(splitLine[4]),
+                                infoInt(splitLine[5])
+                        );
+
+                        Player.getInstance().getLand().getGridPane().add(blueberry.getButton(), blueberry.getX(), blueberry.getY());
+                        Player.getInstance().getLand().addOrgganism(blueberry);
+                        break;
+
+                    case "Tournesol":
+                        SunFlower sunflower = new SunFlower(
+                                Player.getInstance().getLand(),
+                                infoInt(splitLine[2]),
+                                infoInt(splitLine[3]),
+                                infoInt(splitLine[4]),
+                                infoInt(splitLine[5])
+                        );
+
+                        Player.getInstance().getLand().getGridPane().add(sunflower.getButton(), sunflower.getX(), sunflower.getY());
+                        Player.getInstance().getLand().addOrgganism(sunflower);
+                        break;
                 }
             }
 
+            ArrayList<Product> productsPlayer = new ArrayList<>();
             for (String line : products) {
                 String[] splitLine = line.split(", ");
                 Product product = new Product(
@@ -73,12 +98,7 @@ public class ReloadFarm {
                         infoInt(splitLine[3]),
                         infoInt(splitLine[2]));
 
-                switch (product.getName()) {
-                    case "Carotte":
-                        Carrot.setProduct(product);
-                    case "Maïs":
-                        Corn.setProduct(product);
-                }
+                productsPlayer.add(product);
             }
 
             ArrayList<Seed> seedsPlayer = new ArrayList<>();
@@ -102,6 +122,7 @@ public class ReloadFarm {
 
                 babyAnimalPlayer.add(babyAnimal);
             }
+
             Player.getInstance().setSeeds(seedsPlayer);
             Player.getInstance().setBabyAnimals(babyAnimalPlayer);
         }

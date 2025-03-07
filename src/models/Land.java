@@ -23,32 +23,12 @@ public class Land {
         init();
     }
 
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
     public GridPane getGridPane() {
         return gridPane;
     }
 
     public int getSize() {
         return size;
-    }
-
-    public int getCountColumn() {
-        return countColumn;
-    }
-
-    public int getCountRow() {
-        return countRow;
-    }
-
-    public ArrayList<Organism> getOrganisms() {
-        return organisms;
     }
 
     private void init(){
@@ -67,6 +47,7 @@ public class Land {
     }
 
     public void addOrgganism(Organism organism){
+
         organisms.add(organism);
     }
 
@@ -78,8 +59,7 @@ public class Land {
         StringBuilder sb = new StringBuilder();
 
         for(Organism o : organisms){
-
-            sb.append(String.format("vegetable type: %s, actualStade: %d, elapsedTime: %d, x: %d, y: %d", o.getType(), o.getActualStade(), o.getElapsedTime(), o.getX(), o.getY())).append("\n");
+            sb.append(String.format("type: %s, name: %s, actualStade: %d, elapsedTime: %d, x: %d, y: %d", o.getType(), o.getName(), o.getActualStade(), o.getElapsedTime(), o.getX(), o.getY())).append("\n");
         }
 
         return sb.toString();
@@ -89,5 +69,9 @@ public class Land {
         boolean isVegetable = organisms.stream().anyMatch(vegetable -> vegetable.getX() == x && vegetable.getY() == y);
 
         return !isVegetable;
+    }
+
+    public ArrayList<Organism> getOrganisms() {
+        return organisms;
     }
 }

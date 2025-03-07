@@ -1,4 +1,4 @@
-package ect;
+package controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import models.Menu;
+import models.Player;
 import models.Product;
 
 import java.io.IOException;
@@ -31,7 +33,7 @@ public class ProductInventory {
 
     public void showModal() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/productInventary.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/productInventary.fxml"));
             Parent root = loader.load();
 
             ProductInventory controller = loader.getController();
@@ -41,7 +43,7 @@ public class ProductInventory {
             modalStage.setTitle("Inventaire");
             modalStage.setScene(new Scene(root));
 
-            modalStage.showAndWait(); // On attend la fermeture de la fenêtre
+            modalStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }

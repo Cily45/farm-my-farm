@@ -1,4 +1,4 @@
-package ect;
+package controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,8 +10,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import models.Menu;
+import models.Player;
 import models.Product;
-import models.StartOrganism;
 import models.animal.BabyAnimal;
 import models.vegetable.vegetable.Seed;
 
@@ -46,7 +47,7 @@ public class Inventory {
 
     public void showModal() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/inventary.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/inventary.fxml"));
             Parent root = loader.load();
 
             Stage modalStage = new Stage();

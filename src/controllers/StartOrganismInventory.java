@@ -1,4 +1,4 @@
-package ect;
+package controllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,13 +12,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import models.Player;
 import models.Product;
 import models.animal.Animal;
 import models.animal.BabyAnimal;
-import models.vegetable.vegetable.Carrot;
 import models.Organism;
-import models.vegetable.vegetable.Corn;
-import models.vegetable.vegetable.Seed;
+import models.animal.Cow;
+import models.vegetable.vegetable.*;
 
 import java.io.IOException;
 
@@ -54,7 +54,7 @@ public class StartOrganismInventory {
         this.x = x1;
         this.y = y1;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/layout/StartOrganismInventary.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/StartOrganismInventary.fxml"));
             Parent root = loader.load();
 
             StartOrganismInventory controller = loader.getController();
@@ -80,24 +80,36 @@ public class StartOrganismInventory {
 
     public void plantSeed(String type) {
         switch (type) {
-            case "Carotte":
-                Organism carrot = new Carrot(Player.getInstance().getLand(), x, y, 20, new String[] {".","c","C"}, new Product("Carotte", 20, 0), "vegetable","carrot");
-                Player.getInstance().getLand().getGridPane().add(carrot.getButton(), carrot.getX(), carrot.getY());
-                Player.getInstance().getLand().addOrgganism(carrot);
-
             case "Maïs":
-                Organism corn = new Corn(Player.getInstance().getLand(), x, y, 40, new String[] {".","m","M"}, new Product("Maïs", 40, 0), "vegetable","corn");
+                Maize corn = new Maize(Player.getInstance().getLand(), x, y);
                 Player.getInstance().getLand().getGridPane().add(corn.getButton(), corn.getX(), corn.getY());
                 Player.getInstance().getLand().addOrgganism(corn);
+                break;
+            case "Tournesol":
+                SunFlower sunflower = new SunFlower(Player.getInstance().getLand(), x, y);
+                Player.getInstance().getLand().getGridPane().add(sunflower.getButton(), sunflower.getX(), sunflower.getY());
+                Player.getInstance().getLand().addOrgganism(sunflower);
+                break;
+            case "Blé":
+                Wheat wheat = new Wheat(Player.getInstance().getLand(), x, y);
+                Player.getInstance().getLand().getGridPane().add(wheat.getButton(), wheat.getX(), wheat.getY());
+                Player.getInstance().getLand().addOrgganism(wheat);
+                break;
+            case "Myrtille":
+                Blueberry blueberry = new Blueberry(Player.getInstance().getLand(), x, y);
+                Player.getInstance().getLand().getGridPane().add(blueberry.getButton(), blueberry.getX(), blueberry.getY());
+                Player.getInstance().getLand().addOrgganism(blueberry);
+                break;
         }
     }
 
-    public void adoptAnimal(String type) {
+    public void installAnimal(String type) {
         switch (type) {
-            case "Bébé animal":
-                Organism organism = new Animal(Player.getInstance().getLand(), x, y, 20, new String[] {".","v","V"}, new Product("Lait", 200, 0), "animal","cow");
-                Player.getInstance().getLand().getGridPane().add(organism.getButton(), organism.getX(), organism.getY());
-                Player.getInstance().getLand().addOrgganism(organism);
+            case "Veau":
+                Animal animal = new Cow(Player.getInstance().getLand(), x, y);
+                Player.getInstance().getLand().getGridPane().add(animal.getButton(), animal.getX(), animal.getY());
+                Player.getInstance().getLand().addOrgganism(animal);
+                break;
         }
     }
 
@@ -141,7 +153,7 @@ public class StartOrganismInventory {
         table1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.getQuantity() > 0) {
                 plantButton1.setOnAction(event -> {
-                    adoptAnimal(newValue.getType());
+                    installAnimal(newValue.getType());
                     newValue.removeSeed(1);
                     table.refresh();
                     Stage stage = (Stage) table1.getScene().getWindow();

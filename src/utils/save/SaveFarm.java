@@ -1,6 +1,6 @@
-package save;
+package utils.save;
 
-import ect.Player;
+import models.Player;
 import models.Land;
 
 import java.io.BufferedWriter;
