@@ -7,7 +7,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 public class SaveFarm {
-    public static void saveFarm() {
+    public static String saveFarm() {
         String filePath = System.getProperty("user.dir") + "/data/save.txt";
         StringBuilder content = new StringBuilder();
         Land land = Player.getInstance().getLand();
@@ -23,8 +23,10 @@ public class SaveFarm {
             BufferedWriter bufferedWriter = new BufferedWriter(fileReader);
             bufferedWriter.write(content.toString());
             bufferedWriter.close();
+            return "Sauvegarde effectuée";
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "Sauvegarde échouée";
     }
 }

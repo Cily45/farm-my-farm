@@ -17,7 +17,7 @@ public class Maize extends Organism {
         this.type = "vegetable";
         this.name = "Maïs";
         this.etape = 6;
-        this.range = 15 - 1 + 1;
+        this.range = 15 - 1;
         this.minProduction = 1;
         initButton();
         initTimeline();

@@ -14,7 +14,7 @@ public class SunFlower extends Organism {
             this.type = "vegetable";
             this.name= "Tournesol";
             this.etape = 4;
-            this.range = 5-1+1;
+            this.range = 5-1;
             this.minProduction = 1;
             initButton();
             initTimeline();

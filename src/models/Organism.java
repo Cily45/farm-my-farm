@@ -89,7 +89,7 @@ public abstract class Organism {
     }
 
     protected void getProduction() {
-        Player.getInstance().getProduct(name).addQuantity((int) (Math.random() * range) - minProduction);
+        Player.getInstance().getProduct(name).addQuantity((int) (Math.random() * range) + 1);
         land.removeOrganism(this);
         land.getGridPane().getChildren().remove(button);
     }

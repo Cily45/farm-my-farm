@@ -16,7 +16,7 @@ public class Wheat extends Organism {
         this.type = "vegetable";
         this.name= "Blé";
         this.etape = 4;
-        this.range = 10-1+1;
+        this.range = 10-1;
         this.minProduction = 1;
         initButton();
         initTimeline();
