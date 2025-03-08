@@ -6,7 +6,7 @@ import models.Land;
 public class Cow extends Animal {
     public Cow(Land land, int x, int y) {
         super(land, x, y);
-        this.timeToUp = 60;
+        this.timeToUp = 2;
         this.stades = new String[]{"asset/vache-0.png", "asset/vache-1.png", "asset/vache-2.png"};
         this.elapsedTime = 0;
         this.type = "animal";
@@ -15,7 +15,8 @@ public class Cow extends Animal {
         this.etape = 2;
         this.range = 20 - 1 + 1;
         this.minProduction = 1;
-        this.food = "cow";
+        this.food = "Maïs";
+        this.foodNeedImagePath = "asset/faim.png";
         initButton();
         initTimeline();
     }

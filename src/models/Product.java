@@ -5,12 +5,6 @@ public class Product {
     private int price;
     private int quantity;
 
-    public Product(String name, int price) {
-        this.name = name;
-        this.price = price;
-        this.quantity = 0;
-    }
-
     public Product(String name, int price, int quantity) {
         this.name = name;
         this.price = price;

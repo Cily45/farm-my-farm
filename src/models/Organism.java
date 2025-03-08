@@ -44,16 +44,12 @@ public abstract class Organism {
         return y;
     }
 
-    public void growUp() {
+    protected void growUp() {
         elapsedTime++;
 
         if (elapsedTime == timeToUp && actualStade < etape) {
             actualStade++;
-            Image image = new Image(stades[actualStade]);
-            ImageView imageView = new ImageView(image);
-            imageView.setFitHeight(100);
-            imageView.setFitWidth(100);
-            this.button.setGraphic(imageView);
+            changeImageButton(stades[actualStade]);
             elapsedTime = 0;
         }
 
@@ -77,23 +73,27 @@ public abstract class Organism {
     protected void initButton() {
         button.setLayoutX(x);
         button.setLayoutY(y);
-        button.setPrefHeight(land.getSize());
-        button.setPrefWidth(land.getSize());
+        button.setPrefHeight(land.getSize()-10);
+        button.setPrefWidth(land.getSize()-10);
 
-        Image image = new Image(stades[0]);
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(100);
-        imageView.setFitWidth(100);
-        this.button.setGraphic(imageView);
+       changeImageButton(stades[0]);
+
         this.button.setStyle("-fx-background-color: #550808");
     }
 
     protected void getProduction() {
-        Player.getInstance().getProduct(name).addQuantity((int) (Math.random() * range) + 1);
+        int quantity = (int) (((Math.random() * range) + 1) * land.getCurrentWeatherRatio());
+        Player.getInstance().getProduct(name).addQuantity(Math.max(0, quantity));
         land.removeOrganism(this);
         land.getGridPane().getChildren().remove(button);
     }
 
+    protected void changeImageButton(String image) {
+        ImageView imageView = new ImageView(new Image (image));
+        imageView.setFitHeight(land.getSize()-20);
+        imageView.setFitWidth(land.getSize()-20);
+        this.button.setGraphic(imageView);
+    }
     public Long getElapsedTime() {
         return elapsedTime;
     }

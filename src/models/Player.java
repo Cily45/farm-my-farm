@@ -35,7 +35,7 @@ public class Player {
 
     public void initProducts() {
         if(products.isEmpty()) {
-            Product maize = new Product("Maïs", 40, 0);
+            Product maize = new Product("Maïs", 40, 10);
             products.add(maize);
 
             Product sunflower = new Product("Tournesol", 20, 0);
@@ -123,6 +123,10 @@ public class Player {
 
     public void setLand(Land land) {
         this.land = land;
+    }
+
+    public void setProducts(ArrayList<Product> products) {
+        this.products = products;
     }
 
     public void setMoney(long money) {

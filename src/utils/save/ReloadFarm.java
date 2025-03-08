@@ -125,6 +125,7 @@ public class ReloadFarm {
 
             Player.getInstance().setSeeds(seedsPlayer);
             Player.getInstance().setBabyAnimals(babyAnimalPlayer);
+            Player.getInstance().setProducts(productsPlayer);
         }
     }
 
