@@ -12,7 +12,7 @@ public class Player {
     private ArrayList<Product> products = new ArrayList<>();
     private ArrayList<Seed> seeds = new ArrayList<>();
     private ArrayList<BabyAnimal> babyAnimals = new ArrayList<>();
-    private HashMap<String, Integer> stats = new HashMap<>();
+    private HashMap<String, Long> stats = new HashMap<>();
 
     private Land land = null;
 
@@ -145,13 +145,18 @@ public class Player {
         return products.stream().filter(product -> product.getName().equals(name)).findFirst().orElse(null);
     }
 
-    public void initStats(){
-        stats.put("Achat de graine", 0);
-        stats.put("Achat de bébé animaux", 0);
-        stats.put("Vente de produit", 0);
-        stats.put("Farm dolars obtenu", 0);
-        stats.put("Plante mis en champs", 0);
-        stats.put("Animaux mis en élevage",0);
+    private void initStats(){
+        stats.put("Achat de graine", 0L);
+        stats.put("Achat de bébé animaux", 0L);
+        stats.put("Vente de produit", 0L);
+        stats.put("Farm dolars obtenu", 0L);
+        stats.put("Plante mis en champs", 0L);
+        stats.put("Animaux mis en élevage",0L);
+        stats.put("Dépenses total", 0L);
+    }
+
+    public void setStats(String text, long amount) {
+        stats.compute(text, (k, quantity) -> amount + quantity);
     }
 
     public void init(){

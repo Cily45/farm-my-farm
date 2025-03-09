@@ -90,8 +90,9 @@ public class MarketPlace {
                 if ((long) quantity * newValue.getPrice() > Player.getInstance().getMoney()) {
                     quantity = (int) Math.floor((double) Player.getInstance().getMoney() / newValue.getPrice());
                 }
-                Player.getInstance().setMoney(Player.getInstance().getMoney() - ((long) quantity * newValue.getPrice()));
-                newValue.setQuantity(quantity);
+                long price = (long) quantity * newValue.getPrice();
+                Player.getInstance().setMoney(Player.getInstance().getMoney() - price);
+                Player.getInstance().setStats("Dépenses total", price);                newValue.setQuantity(quantity);
                 Menu.getInstance().refreshMoney();
                 table.refresh();
             });
@@ -110,9 +111,11 @@ public class MarketPlace {
                 if ((long) quantity * newValue.getPrice() > Player.getInstance().getMoney()) {
                     quantity = (int) Math.floor((double) Player.getInstance().getMoney() / newValue.getPrice());
                 }
-
-                Player.getInstance().setMoney(Player.getInstance().getMoney() - ((long) quantity * newValue.getPrice()));
+                long price = (long) quantity * newValue.getPrice();
+                Player.getInstance().setMoney(Player.getInstance().getMoney() - price);
+                Player.getInstance().setStats("Dépenses total", price);
                 newValue.setQuantity(quantity);
+                Player.getInstance().setStats("Achat de bébé animaux", quantity);
                 Menu.getInstance().refreshMoney();
                 table1.refresh();
             });
