@@ -2,6 +2,7 @@ package utils.save;
 
 import models.Player;
 import models.Product;
+import models.Stats;
 import models.animal.*;
 import models.vegetable.vegetable.*;
 
@@ -34,6 +35,7 @@ public class ReloadFarm {
             ArrayList<String> seeds = new ArrayList<>(lines.stream().filter(line -> line.contains("seed")).toList());
             ArrayList<String> babyAnimals = new ArrayList<>(lines.stream().filter(line -> line.contains("babyAnimal")).toList());
             ArrayList<String> blockedGrids = new ArrayList<>(lines.stream().filter(line -> line.contains("blockedGrid")).toList());
+            ArrayList<String> stats = new ArrayList<>(lines.stream().filter(line -> line.contains("stats")).toList());
 
             for (String line : vegetables) {
                 String[] splitLine = line.split(", ");
@@ -188,10 +190,17 @@ public class ReloadFarm {
                blockedGridsPlayer.add(new Integer[] {infoInt(splitLine[1]), infoInt(splitLine[2])});
             }
 
+            ArrayList<Stats> statsPlayer = new ArrayList<>();
+            for (String line : stats) {
+                String[] splitLine = line.split(", ");
+                statsPlayer.add(new Stats(splitLine[1], Long.parseLong(splitLine[2])));
+            }
+
             Player.getInstance().setSeeds(seedsPlayer);
             Player.getInstance().setBabyAnimals(babyAnimalPlayer);
             Player.getInstance().setProducts(productsPlayer);
             Player.getInstance().getLand().setBlockedGrids(blockedGridsPlayer);
+            Player.getInstance().setStats(statsPlayer);
         }
     }
 
@@ -204,5 +213,6 @@ public class ReloadFarm {
         String[] splitLine = line.split(": ");
         return Integer.parseInt(splitLine[1].trim());
     }
+
 }
 

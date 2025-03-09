@@ -12,7 +12,7 @@ public class Player {
     private ArrayList<Product> products = new ArrayList<>();
     private ArrayList<Seed> seeds = new ArrayList<>();
     private ArrayList<BabyAnimal> babyAnimals = new ArrayList<>();
-    private HashMap<String, Long> stats = new HashMap<>();
+    private ArrayList<Stats> stats = new ArrayList<>();
 
     private Land land = null;
 
@@ -32,6 +32,9 @@ public class Player {
         initStartOrganism();
     }
 
+    public ArrayList<Stats> getStats() {
+        return stats;
+    }
 
     public void initProducts() {
         if(products.isEmpty()) {
@@ -148,17 +151,26 @@ public class Player {
     }
 
     private void initStats(){
-        stats.put("Achat de graine", 0L);
-        stats.put("Achat de bébé animaux", 0L);
-        stats.put("Vente de produit", 0L);
-        stats.put("Farm dolars obtenu", 0L);
-        stats.put("Plante mis en champs", 0L);
-        stats.put("Animaux mis en élevage",0L);
-        stats.put("Dépenses total", 0L);
-    }
+        if(stats.isEmpty()){
 
-    public void setStats(String text, long amount) {
-        stats.compute(text, (k, quantity) -> amount + quantity);
+        stats.add(new Stats("Achat de graine",0L));
+        stats.add(new Stats("Achat de bébé animaux",0L));
+        stats.add(new Stats("Vente de produit",0L));
+        stats.add(new Stats("Farm dolars obtenu",0L));
+        stats.add(new Stats("Plante mis en champs",0L));
+        stats.add(new Stats("Animaux mis en élevage",0L));
+        stats.add(new Stats("Dépenses total",0L));
+    }}
+
+    public void setStats(ArrayList<Stats> stats) {
+        this.stats = stats;
+    }
+    public String getStatsToString() {
+        StringBuilder sb = new StringBuilder();
+        for (Stats s : stats) {
+            sb.append(String.format("stats, %s, %d", s.getText(),s.getQuantity()));
+        }
+        return sb.toString();
     }
 
     public void init(){

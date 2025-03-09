@@ -1,5 +1,6 @@
 package models;
 
+import controllers.Finance;
 import controllers.Inventory;
 import controllers.MarketPlace;
 import javafx.animation.KeyFrame;
@@ -41,6 +42,9 @@ public class Menu {
     @FXML
     private Label infoLabel;
 
+    @FXML
+    private Button financeButton;
+
     private static Menu instance;
 
     public static Menu getInstance() {
@@ -63,6 +67,10 @@ public class Menu {
 
         marketButton.setOnAction(event -> {
             new MarketPlace().showModal();
+        });
+
+        financeButton.setOnAction(event -> {
+            new Finance().showModal();
         });
 
         weather();

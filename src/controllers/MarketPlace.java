@@ -92,7 +92,8 @@ public class MarketPlace {
                 }
                 long price = (long) quantity * newValue.getPrice();
                 Player.getInstance().setMoney(Player.getInstance().getMoney() - price);
-                Player.getInstance().setStats("Dépenses total", price);                newValue.setQuantity(quantity);
+                Player.getInstance().getStats().stream().filter(s -> s.getText().equals("Dépenses total")).findFirst().get().addQuantity(price);
+                newValue.setQuantity(quantity);
                 Menu.getInstance().refreshMoney();
                 table.refresh();
             });
@@ -113,9 +114,8 @@ public class MarketPlace {
                 }
                 long price = (long) quantity * newValue.getPrice();
                 Player.getInstance().setMoney(Player.getInstance().getMoney() - price);
-                Player.getInstance().setStats("Dépenses total", price);
+                Player.getInstance().getStats().stream().filter(s -> s.getText().equals("Dépenses total")).findFirst().get().addQuantity(price);
                 newValue.setQuantity(quantity);
-                Player.getInstance().setStats("Achat de bébé animaux", quantity);
                 Menu.getInstance().refreshMoney();
                 table1.refresh();
             });
