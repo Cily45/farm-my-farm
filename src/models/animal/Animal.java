@@ -93,7 +93,6 @@ public class Animal extends Organism {
         });
     }
 
-
     @Override
     protected void initButton() {
         super.initButton();
