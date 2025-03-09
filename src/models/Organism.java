@@ -2,9 +2,12 @@ package models;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
 
@@ -18,7 +21,6 @@ public abstract class Organism {
     protected String type;
     protected String name;
     protected int etape;
-
 
     public Organism(Land land, int x, int y) {
         this.land = land;
@@ -73,10 +75,12 @@ public abstract class Organism {
     protected void initButton() {
         button.setLayoutX(x);
         button.setLayoutY(y);
-        button.setPrefHeight(land.getSize()-10);
-        button.setPrefWidth(land.getSize()-10);
 
-       changeImageButton(stades[0]);
+        button.setMinSize(land.getSize() - 10, land.getSize() - 10);
+        button.setMaxSize(land.getSize() - 10, land.getSize() - 10);
+        button.setPrefSize(land.getSize() - 10, land.getSize() - 10);
+
+       changeImageButton(stades[actualStade]);
 
         this.button.setStyle("-fx-background-color: #550808");
     }

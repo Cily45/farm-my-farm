@@ -1,18 +1,14 @@
 package models.animal;
 
-import javafx.animation.Animation;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import models.*;
 
 public class Animal extends Organism {
     protected long elapsedTime = 0;
     protected boolean isFeed = false;
-
-    protected ImageView faim = new ImageView(new Image("asset/faim.png"));
     protected String food;
     protected String foodNeedImagePath;
     protected String production;

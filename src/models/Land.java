@@ -1,11 +1,15 @@
 package models;
 
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 
 import java.util.ArrayList;
+
 
 public class Land {
     private int height;
@@ -16,6 +20,7 @@ public class Land {
     private GridPane gridPane;
     private ArrayList<Organism> organisms = new ArrayList<>();
     private ArrayList<Weather> weathers = new ArrayList<>();
+    private ArrayList<Integer[]> blockedGrids = new ArrayList<>();
     private Weather currentWeather;
 
     public Land(int x, int y) {
@@ -23,6 +28,12 @@ public class Land {
         this.width = x;
         this.countColumn = height / size;
         this.countRow = width / size;
+
+        for (int i = countColumn - 3; i < countRow; i++) {
+            for (int j = 0; j < countColumn; j++) {
+                blockedGrids.add(new Integer[]{j, i});
+            }
+        }
         init();
     }
 
@@ -47,6 +58,7 @@ public class Land {
             RowConstraints row = new RowConstraints(size);
             gridPane.getRowConstraints().add(row);
         }
+
         weathers.add(new Weather(1.2, new Image("asset/belle-eclaircies.png")));
         weathers.add(new Weather(0.4, new Image("asset/neige.png")));
         weathers.add(new Weather(1, new Image("asset/nuageux.png")));
@@ -56,6 +68,28 @@ public class Land {
         weathers.add(new Weather(1.6, new Image("asset/arc-en-ciel.png")));
     }
 
+    public void initBlockedGrids() {
+        for (Integer[] blocked : blockedGrids) {
+            Button button = new Button("Acheter\n5'000 FD");
+            button.setLayoutX(blocked[0]);
+            button.setLayoutY(blocked[0]);
+            button.setPrefHeight(size - 10);
+            button.setPrefWidth(size - 10);
+            gridPane.add(button, blocked[0], blocked[1]);
+            GridPane.setHalignment(button, HPos.CENTER);
+            GridPane.setValignment(button, VPos.CENTER);
+            button.setOnAction(event -> {
+                if (Player.getInstance().getMoney() >= 5000) {
+                    Player.getInstance().setMoney(Player.getInstance().getMoney() - 5000);
+                    Menu.getInstance().setLabel("Terrain acheté");
+                    Menu.getInstance().refreshMoney();
+                    gridPane.getChildren().remove(button);
+                    blockedGrids.remove(blocked);
+                }
+            });
+        }
+    }
+
     public void changeWeather() {
         int rand = (int) (Math.random() * weathers.size());
         currentWeather = weathers.get(rand);
@@ -63,7 +97,6 @@ public class Land {
     }
 
     public void addOrgganism(Organism organism) {
-
         organisms.add(organism);
     }
 
@@ -71,7 +104,7 @@ public class Land {
         organisms.remove(organism);
     }
 
-    public String getProductsToString() {
+    public String getOrganimsToString() {
         StringBuilder sb = new StringBuilder();
 
         for (Organism o : organisms) {
@@ -93,5 +126,19 @@ public class Land {
 
     public double getCurrentWeatherRatio() {
         return currentWeather.getRatio();
+    }
+
+    public String getBlockedGridsToString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Integer[] blocked : blockedGrids) {
+            sb.append(String.format("blockedGrid, x: %d, y: %d", blocked[0], blocked[1])).append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    public void setBlockedGrids(ArrayList<Integer[]> blockedGrids) {
+        this.blockedGrids = blockedGrids;
     }
 }

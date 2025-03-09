@@ -35,7 +35,7 @@ public class Player {
 
     public void initProducts() {
         if(products.isEmpty()) {
-            Product maize = new Product("Maïs", 40, 10);
+            Product maize = new Product("Maïs", 40, 0);
             products.add(maize);
 
             Product sunflower = new Product("Tournesol", 20, 0);
@@ -70,10 +70,10 @@ public class Player {
         }
 
         if (babyAnimals.isEmpty()) {
-            babyAnimals.add(new BabyAnimal("Veau", 10, 0));
-            babyAnimals.add(new BabyAnimal("Oeuf", 10, 0));
-            babyAnimals.add(new BabyAnimal("Agneau", 10, 0));
-            babyAnimals.add(new BabyAnimal("Poulain", 10, 0));
+            babyAnimals.add(new BabyAnimal("Veau", 400, 0));
+            babyAnimals.add(new BabyAnimal("Oeuf", 100, 0));
+            babyAnimals.add(new BabyAnimal("Agneau", 200, 0));
+            babyAnimals.add(new BabyAnimal("Poulain", 300, 0));
         }
     }
 
@@ -108,6 +108,8 @@ public class Player {
         }
         return sb.toString();
     }
+
+
 
     public Land getLand() {
         return land;
@@ -164,5 +166,6 @@ public class Player {
         initInventary();
         initStats();
         initProducts();
+        land.initBlockedGrids();
     }
 }

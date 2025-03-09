@@ -4,20 +4,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Player;
 import models.Product;
-import models.animal.Animal;
-import models.animal.BabyAnimal;
+import models.animal.*;
 import models.Organism;
-import models.animal.Cow;
 import models.vegetable.vegetable.*;
 
 import java.io.IOException;
@@ -79,38 +80,56 @@ public class StartOrganismInventory {
     }
 
     public void plantSeed(String type) {
+        Organism organism = null;
         switch (type) {
             case "Maïs":
-                Maize corn = new Maize(Player.getInstance().getLand(), x, y);
-                Player.getInstance().getLand().getGridPane().add(corn.getButton(), corn.getX(), corn.getY());
-                Player.getInstance().getLand().addOrgganism(corn);
+                organism = new Maize(Player.getInstance().getLand(), x, y);
+
                 break;
             case "Tournesol":
-                SunFlower sunflower = new SunFlower(Player.getInstance().getLand(), x, y);
-                Player.getInstance().getLand().getGridPane().add(sunflower.getButton(), sunflower.getX(), sunflower.getY());
-                Player.getInstance().getLand().addOrgganism(sunflower);
+                organism = new SunFlower(Player.getInstance().getLand(), x, y);
+
                 break;
             case "Blé":
-                Wheat wheat = new Wheat(Player.getInstance().getLand(), x, y);
-                Player.getInstance().getLand().getGridPane().add(wheat.getButton(), wheat.getX(), wheat.getY());
-                Player.getInstance().getLand().addOrgganism(wheat);
+                organism = new Wheat(Player.getInstance().getLand(), x, y);
+
                 break;
             case "Myrtille":
-                Blueberry blueberry = new Blueberry(Player.getInstance().getLand(), x, y);
-                Player.getInstance().getLand().getGridPane().add(blueberry.getButton(), blueberry.getX(), blueberry.getY());
-                Player.getInstance().getLand().addOrgganism(blueberry);
+                organism = new Blueberry(Player.getInstance().getLand(), x, y);
+
                 break;
         }
+        Player.getInstance().getLand().getGridPane().add(organism.getButton(), organism.getX(), organism.getY());
+        GridPane.setHalignment(organism.getButton(), HPos.CENTER);
+        GridPane.setValignment(organism.getButton(), VPos.CENTER);
+        Player.getInstance().getLand().addOrgganism(organism);
+
     }
 
     public void installAnimal(String type) {
+        Animal animal = null;
         switch (type) {
             case "Veau":
-                Animal animal = new Cow(Player.getInstance().getLand(), x, y);
-                Player.getInstance().getLand().getGridPane().add(animal.getButton(), animal.getX(), animal.getY());
-                Player.getInstance().getLand().addOrgganism(animal);
+                animal = new Cow(Player.getInstance().getLand(), x, y);
+                break;
+
+            case "Oeuf":
+                animal = new Chicken(Player.getInstance().getLand(), x, y);
+                break;
+
+            case "Poulain":
+                animal = new Horse(Player.getInstance().getLand(), x, y);
+
+                break;
+            case "Agneau":
+                animal = new Sheep(Player.getInstance().getLand(), x, y);
                 break;
         }
+        Player.getInstance().getLand().getGridPane().add(animal.getButton(), animal.getX(), animal.getY());
+
+        Player.getInstance().getLand().addOrgganism(animal);
+        GridPane.setHalignment(animal.getButton(), HPos.CENTER);
+        GridPane.setValignment(animal.getButton(), VPos.CENTER);
     }
 
     private void initStartOrganismInventories() {

@@ -2,7 +2,7 @@ package utils.save;
 
 import models.Player;
 import models.Product;
-import models.animal.BabyAnimal;
+import models.animal.*;
 import models.vegetable.vegetable.*;
 
 import java.io.BufferedReader;
@@ -29,9 +29,11 @@ public class ReloadFarm {
             Player.getInstance().setMoney(money);
 
             ArrayList<String> vegetables = new ArrayList<>(lines.stream().filter(line -> line.contains("vegetable")).toList());
+            ArrayList<String> animals = new ArrayList<>(lines.stream().filter(line -> line.contains("animal")).toList());
             ArrayList<String> products = new ArrayList<>(lines.stream().filter(line -> line.contains("product")).toList());
             ArrayList<String> seeds = new ArrayList<>(lines.stream().filter(line -> line.contains("seed")).toList());
             ArrayList<String> babyAnimals = new ArrayList<>(lines.stream().filter(line -> line.contains("babyAnimal")).toList());
+            ArrayList<String> blockedGrids = new ArrayList<>(lines.stream().filter(line -> line.contains("blockedGrid")).toList());
 
             for (String line : vegetables) {
                 String[] splitLine = line.split(", ");
@@ -90,6 +92,63 @@ public class ReloadFarm {
                 }
             }
 
+            for (String line : animals) {
+                String[] splitLine = line.split(", ");
+                switch (infoString(splitLine[1])) {
+                    case "Vache":
+                        Cow cow = new Cow(
+                                Player.getInstance().getLand(),
+                                infoInt(splitLine[2]),
+                                infoInt(splitLine[3]),
+                                infoInt(splitLine[4]),
+                                infoInt(splitLine[5])
+                        );
+
+                        Player.getInstance().getLand().getGridPane().add(cow.getButton(), cow.getX(), cow.getY());
+                        Player.getInstance().getLand().addOrgganism(cow);
+                        break;
+
+                    case "Mouton":
+                        Sheep sheep = new Sheep(
+                                Player.getInstance().getLand(),
+                                infoInt(splitLine[2]),
+                                infoInt(splitLine[3]),
+                                infoInt(splitLine[4]),
+                                infoInt(splitLine[5])
+                        );
+
+                        Player.getInstance().getLand().getGridPane().add(sheep.getButton(), sheep.getX(), sheep.getY());
+                        Player.getInstance().getLand().addOrgganism(sheep);
+                        break;
+
+                    case "Poule":
+                        Chicken chicken = new Chicken(
+                                Player.getInstance().getLand(),
+                                infoInt(splitLine[2]),
+                                infoInt(splitLine[3]),
+                                infoInt(splitLine[4]),
+                                infoInt(splitLine[5])
+                        );
+
+                        Player.getInstance().getLand().getGridPane().add(chicken.getButton(), chicken.getX(), chicken.getY());
+                        Player.getInstance().getLand().addOrgganism(chicken);
+                        break;
+
+                    case "Cheval":
+                        Horse horse = new Horse(
+                                Player.getInstance().getLand(),
+                                infoInt(splitLine[2]),
+                                infoInt(splitLine[3]),
+                                infoInt(splitLine[4]),
+                                infoInt(splitLine[5])
+                        );
+
+                        Player.getInstance().getLand().getGridPane().add(horse.getButton(), horse.getX(), horse.getY());
+                        Player.getInstance().getLand().addOrgganism(horse);
+                        break;
+                }
+            }
+
             ArrayList<Product> productsPlayer = new ArrayList<>();
             for (String line : products) {
                 String[] splitLine = line.split(", ");
@@ -123,9 +182,16 @@ public class ReloadFarm {
                 babyAnimalPlayer.add(babyAnimal);
             }
 
+            ArrayList<Integer[]> blockedGridsPlayer = new ArrayList<>();
+            for (String line : blockedGrids) {
+                String[] splitLine = line.split(", ");
+               blockedGridsPlayer.add(new Integer[] {infoInt(splitLine[1]), infoInt(splitLine[2])});
+            }
+
             Player.getInstance().setSeeds(seedsPlayer);
             Player.getInstance().setBabyAnimals(babyAnimalPlayer);
             Player.getInstance().setProducts(productsPlayer);
+            Player.getInstance().getLand().setBlockedGrids(blockedGridsPlayer);
         }
     }
 

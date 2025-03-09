@@ -14,9 +14,10 @@ public class SaveFarm {
 
         content.append(String.format("FD: %d\n", Player.getInstance().getMoney()));
         content.append(Player.getInstance().getProductsToString());
-        content.append(land.getProductsToString());
+        content.append(land.getOrganimsToString());
         content.append(Player.getInstance().getSeedsToString());
         content.append(Player.getInstance().getBabyAnimalsToString());
+        content.append(land.getBlockedGridsToString());
 
         try {
             FileWriter fileReader = new FileWriter(filePath);
