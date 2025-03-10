@@ -45,8 +45,6 @@ public class Animal extends Organism {
                 }
             });
         }
-
-        System.out.println(elapsedTime + " " + timeToUp + " " + actualStade + " " + etape);
     }
 
     @Override

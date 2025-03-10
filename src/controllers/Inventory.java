@@ -23,12 +23,6 @@ public class Inventory {
     private TableView<Product> table;
 
     @FXML
-    private TextField textField;
-
-    @FXML
-    private Button sellButton;
-
-    @FXML
     private TableColumn<Product, String> colName;
     @FXML
     private TableColumn<Product, Integer> colQuantity;
@@ -66,27 +60,6 @@ public class Inventory {
         initProductInventory();
         initSeedInventory();
         initBabyAnimalInventory();
-
-        table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            textField.setText(String.valueOf(newValue.getQuantity()));
-            sellButton.setOnAction(event -> {
-                int quantity = 0;
-                try {
-                    quantity = Integer.parseInt(textField.getText());
-                } catch (Exception e) {
-                    System.out.println("Erreur lors de la saisie");
-                }
-
-                if (quantity > newValue.getQuantity()) {
-                    quantity = newValue.getQuantity();
-                }
-                Player.getInstance().setMoney(Player.getInstance().getMoney() + ((long) quantity * newValue.getPrice()));
-                newValue.removeQuantity(quantity);
-                Menu.getInstance().refreshMoney();
-                table.refresh();
-            });
-        });
-
     }
 
     private void initProductInventory() {

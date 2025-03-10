@@ -103,7 +103,7 @@ public class StartOrganismInventory {
         GridPane.setHalignment(organism.getButton(), HPos.CENTER);
         GridPane.setValignment(organism.getButton(), VPos.CENTER);
         Player.getInstance().getLand().addOrgganism(organism);
-
+        Player.getInstance().modifyStats("Plante mis en champs", 1);
     }
 
     public void installAnimal(String type) {
@@ -130,6 +130,8 @@ public class StartOrganismInventory {
         Player.getInstance().getLand().addOrgganism(animal);
         GridPane.setHalignment(animal.getButton(), HPos.CENTER);
         GridPane.setValignment(animal.getButton(), VPos.CENTER);
+        Player.getInstance().modifyStats("Animaux mis en élevage", 1);
+
     }
 
     private void initStartOrganismInventories() {

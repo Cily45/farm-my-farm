@@ -1,5 +1,6 @@
 package models;
 
+import controllers.MarketPlace;
 import models.animal.BabyAnimal;
 import models.vegetable.vegetable.*;
 
@@ -13,6 +14,7 @@ public class Player {
     private ArrayList<Seed> seeds = new ArrayList<>();
     private ArrayList<BabyAnimal> babyAnimals = new ArrayList<>();
     private ArrayList<Stats> stats = new ArrayList<>();
+    private HashMap<Product, Double> currentMarketPrices = new HashMap<>();
 
     private Land land = null;
 
@@ -160,6 +162,8 @@ public class Player {
         stats.add(new Stats("Plante mis en champs",0L));
         stats.add(new Stats("Animaux mis en élevage",0L));
         stats.add(new Stats("Dépenses total",0L));
+        stats.add(new Stats("Dépenses en graine", 0L));
+        stats.add(new Stats("Dépenses en bébé animaux", 0L));
     }}
 
     public void setStats(ArrayList<Stats> stats) {
@@ -173,11 +177,37 @@ public class Player {
         return sb.toString();
     }
 
+    public void modifyStats(String line, long quantity){
+        Stats stats = getStats().stream().filter(s -> s.getText().equals(line)).findFirst().get();
+        stats.addQuantity(quantity);
+    }
+    private void initMarketPrice(){
+        if(currentMarketPrices.isEmpty()) {
+            for (Product product : Player.getInstance().getProducts()) {
+                currentMarketPrices.put(product, 100.0);
+            }
+        }
+    }
+
+    public void changeMarketPrice(Product product, int quantity){
+        currentMarketPrices.replace(product, currentMarketPrices.get(product) - (quantity*(double)(1/7)));
+        int newPrice = (int) (product.getPrice() * currentMarketPrices.get(product)/100);
+        product.setPrice(newPrice);
+        for(Product p : currentMarketPrices.keySet()){
+            if(!p.equals(product)){
+                currentMarketPrices.replace(p, currentMarketPrices.get(p) + (quantity*(double)(1/7)));
+                int newPrice2 = (int) (p.getPrice() * currentMarketPrices.get(p)/100);
+                p.setPrice(newPrice2);
+            }
+        }
+    }
+
     public void init(){
         initStartOrganism();
         initInventary();
         initStats();
         initProducts();
         land.initBlockedGrids();
+        initMarketPrice();
     }
 }

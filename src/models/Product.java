@@ -30,4 +30,7 @@ public class Product {
         this.quantity -= quantity;
     }
 
+    public void setPrice(int price) {
+        this.price = price;
+    }
 }

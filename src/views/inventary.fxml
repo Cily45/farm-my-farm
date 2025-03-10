@@ -29,8 +29,6 @@
                               <Font name="Arial" size="20.0" />
                            </font>
                         </Label>
-                        <Button fx:id="sellButton" layoutX="283.0" layoutY="15.0" mnemonicParsing="false" text="Vendre" />
-                        <TextField fx:id="textField" layoutX="234.0" layoutY="15.0" prefHeight="25.0" prefWidth="38.0" />
                      </children>
                   </AnchorPane>
             </content>

@@ -15,21 +15,25 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Menu;
 import models.Player;
+import models.Product;
 import models.animal.BabyAnimal;
 import models.vegetable.vegetable.Seed;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class MarketPlace {
     @FXML
     private TableView<Seed> table;
+
     @FXML
     private TableColumn<Seed, String> colName;
+
     @FXML
     private TableColumn<Seed, Integer> colQuantity;
+
     @FXML
     private TableColumn<Seed, Integer> colPrice;
-
 
     @FXML
     private TextField textField;
@@ -55,6 +59,24 @@ public class MarketPlace {
     @FXML
     private Button buyButton1;
 
+    @FXML
+    private TableView<Product> productTable;
+
+    @FXML
+    private TableColumn<Product, String> productCol;
+
+    @FXML
+    private TableColumn<Product, Integer> productPossederCol;
+
+    @FXML
+    private TableColumn<Product, Integer> productPriceCol;
+
+    @FXML
+    private TextField productTextField;
+
+    @FXML
+    private Button productButton;
+
 
     public void showModal() {
         try {
@@ -76,6 +98,7 @@ public class MarketPlace {
     public void initialize() {
         initSeedInventory();
         initBabyAnimalInventory();
+        initProductInventory();
 
         table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             buyButton.setOnAction(event -> {
@@ -92,9 +115,11 @@ public class MarketPlace {
                 }
                 long price = (long) quantity * newValue.getPrice();
                 Player.getInstance().setMoney(Player.getInstance().getMoney() - price);
-                Player.getInstance().getStats().stream().filter(s -> s.getText().equals("Dépenses total")).findFirst().get().addQuantity(price);
                 newValue.setQuantity(quantity);
                 Menu.getInstance().refreshMoney();
+                Player.getInstance().modifyStats("Achat de graine", quantity);
+                Player.getInstance().modifyStats("Dépenses total", price);
+                Player.getInstance().modifyStats("Dépenses en graine", price);
                 table.refresh();
             });
         });
@@ -114,10 +139,39 @@ public class MarketPlace {
                 }
                 long price = (long) quantity * newValue.getPrice();
                 Player.getInstance().setMoney(Player.getInstance().getMoney() - price);
-                Player.getInstance().getStats().stream().filter(s -> s.getText().equals("Dépenses total")).findFirst().get().addQuantity(price);
                 newValue.setQuantity(quantity);
+                Player.getInstance().modifyStats("Achat de bébé animaux", quantity);
+                Player.getInstance().modifyStats("Dépenses total", price);
+                Player.getInstance().modifyStats("Dépenses en bébé animaux", price);
                 Menu.getInstance().refreshMoney();
                 table1.refresh();
+            });
+        });
+
+        productTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            productButton.setOnAction(event -> {
+                int quantity = 0;
+
+                try {
+                    quantity = Integer.parseInt(productTextField.getText());
+                } catch (Exception e) {
+                    System.out.println("Erreur lors de la saisie");
+                }
+
+                if (quantity >= newValue.getQuantity()) {
+                    quantity = newValue.getQuantity();
+                }
+                long price = ((long) quantity * newValue.getPrice());
+                Player.getInstance().setMoney(Player.getInstance().getMoney() + price);
+                newValue.removeQuantity(quantity);
+                Player.getInstance().modifyStats("Vente de produit", quantity);
+                Player.getInstance().modifyStats("Farm dolars obtenu", price);
+                Player.getInstance().changeMarketPrice(newValue, quantity);
+                Menu.getInstance().refreshMoney();
+
+
+
+                productTable.refresh();
             });
         });
     }
@@ -129,9 +183,8 @@ public class MarketPlace {
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         ObservableList<Seed> datas = FXCollections.observableArrayList();
 
-        if (Player.getInstance().getProducts() != null) {
             datas.addAll(Player.getInstance().getSeeds());
-        }
+
 
         table.setItems(datas);
     }
@@ -142,10 +195,23 @@ public class MarketPlace {
         colPrice1.setCellValueFactory(new PropertyValueFactory<>("price"));
         ObservableList<BabyAnimal> datas = FXCollections.observableArrayList();
 
-        if (Player.getInstance().getProducts() != null) {
             datas.addAll(Player.getInstance().getBabyAnimals());
-        }
+
 
         table1.setItems(datas);
     }
+
+    private void initProductInventory() {
+        productCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+        productPossederCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        productPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
+        ObservableList<Product> datas = FXCollections.observableArrayList();
+
+            datas.addAll(Player.getInstance().getProducts());
+
+
+        productTable.setItems(datas);
+    }
+
+
 }
