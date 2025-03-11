@@ -4,12 +4,15 @@ public class Product {
     private String name;
     private int price;
     private int quantity;
+    private int initialPrice;
 
-    public Product(String name, int price, int quantity) {
+    public Product(String name, int price, int quantity, int initialPrice) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.initialPrice = initialPrice;
     }
+
     public String getName() {
         return name;
     }
@@ -32,5 +35,9 @@ public class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getInitialPrice() {
+        return initialPrice;
     }
 }

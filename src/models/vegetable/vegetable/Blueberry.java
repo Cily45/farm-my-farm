@@ -27,6 +27,7 @@ public class Blueberry extends Organism {
             this.type = "vegetable";
             this.name= "Myrtille";
             this.etape = 5;
+            this.button = new Button(stades[actualStade]);
             this.range = 15-1+1;
             this.minProduction = 1;
             initButton();

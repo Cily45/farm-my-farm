@@ -149,6 +149,7 @@ public class MarketPlace {
         });
 
         productTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            productTextField.setText(String.valueOf(newValue.getQuantity()));
             productButton.setOnAction(event -> {
                 int quantity = 0;
 
@@ -168,24 +169,17 @@ public class MarketPlace {
                 Player.getInstance().modifyStats("Farm dolars obtenu", price);
                 Player.getInstance().changeMarketPrice(newValue, quantity);
                 Menu.getInstance().refreshMoney();
-
-
-
                 productTable.refresh();
             });
         });
     }
-
 
     private void initSeedInventory() {
         colName.setCellValueFactory(new PropertyValueFactory<>("type"));
         colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         colPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         ObservableList<Seed> datas = FXCollections.observableArrayList();
-
-            datas.addAll(Player.getInstance().getSeeds());
-
-
+        datas.addAll(Player.getInstance().getSeeds());
         table.setItems(datas);
     }
 
@@ -194,10 +188,7 @@ public class MarketPlace {
         colQuantity1.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         colPrice1.setCellValueFactory(new PropertyValueFactory<>("price"));
         ObservableList<BabyAnimal> datas = FXCollections.observableArrayList();
-
-            datas.addAll(Player.getInstance().getBabyAnimals());
-
-
+        datas.addAll(Player.getInstance().getBabyAnimals());
         table1.setItems(datas);
     }
 
@@ -206,12 +197,7 @@ public class MarketPlace {
         productPossederCol.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         productPriceCol.setCellValueFactory(new PropertyValueFactory<>("price"));
         ObservableList<Product> datas = FXCollections.observableArrayList();
-
-            datas.addAll(Player.getInstance().getProducts());
-
-
+        datas.addAll(Player.getInstance().getProducts());
         productTable.setItems(datas);
     }
-
-
 }

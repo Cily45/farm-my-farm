@@ -157,7 +157,9 @@ public class ReloadFarm {
                 Product product = new Product(
                         infoString(splitLine[1]),
                         infoInt(splitLine[3]),
-                        infoInt(splitLine[2]));
+                        infoInt(splitLine[2]),
+                        infoInt(splitLine[4]))
+                        ;
 
                 productsPlayer.add(product);
             }

@@ -39,29 +39,29 @@ public class Player {
     }
 
     public void initProducts() {
-        if(products.isEmpty()) {
-            Product maize = new Product("Maïs", 40, 0);
+        if (products.isEmpty()) {
+            Product maize = new Product("Maïs", 40, 0, 40);
             products.add(maize);
 
-            Product sunflower = new Product("Tournesol", 20, 0);
+            Product sunflower = new Product("Tournesol", 20, 0, 20);
             products.add(sunflower);
 
-            Product wheat = new Product("Blé", 20, 0);
+            Product wheat = new Product("Blé", 10, 0, 10);
             products.add(wheat);
 
-            Product blueberry = new Product("Myrtille", 20, 0);
+            Product blueberry = new Product("Myrtille", 30, 0, 30);
             products.add(blueberry);
 
-            Product milk = new Product("Lait", 20, 0);
+            Product milk = new Product("Lait", 350, 0, 350);
             products.add(milk);
 
-            Product wool = new Product("Laine", 20, 0);
+            Product wool = new Product("Laine", 250, 0, 250);
             products.add(wool);
 
-            Product egg = new Product("Oeuf", 20, 0);
+            Product egg = new Product("Oeuf", 100, 0, 100);
             products.add(egg);
 
-            Product manure = new Product("Fumier", 20, 0);
+            Product manure = new Product("Fumier", 300, 0, 300);
             products.add(manure);
         }
     }
@@ -90,7 +90,7 @@ public class Player {
         StringBuilder sb = new StringBuilder();
 
         for (Product p : products) {
-            sb.append(String.format("product, name: %s, quantity: %d, price: %d", p.getName(), p.getQuantity(), p.getPrice())).append("\n");
+            sb.append(String.format("product, name: %s, quantity: %d, price: %d, initPrice: %d", p.getName(), p.getQuantity(), p.getPrice(), p.getInitialPrice())).append("\n");
         }
 
         return sb.toString();
@@ -113,7 +113,6 @@ public class Player {
         }
         return sb.toString();
     }
-
 
 
     public Land getLand() {
@@ -152,57 +151,61 @@ public class Player {
         return products.stream().filter(product -> product.getName().equals(name)).findFirst().orElse(null);
     }
 
-    private void initStats(){
-        if(stats.isEmpty()){
+    private void initStats() {
+        if (stats.isEmpty()) {
 
-        stats.add(new Stats("Achat de graine",0L));
-        stats.add(new Stats("Achat de bébé animaux",0L));
-        stats.add(new Stats("Vente de produit",0L));
-        stats.add(new Stats("Farm dolars obtenu",0L));
-        stats.add(new Stats("Plante mis en champs",0L));
-        stats.add(new Stats("Animaux mis en élevage",0L));
-        stats.add(new Stats("Dépenses total",0L));
-        stats.add(new Stats("Dépenses en graine", 0L));
-        stats.add(new Stats("Dépenses en bébé animaux", 0L));
-    }}
+            stats.add(new Stats("Achat de graine", 0L));
+            stats.add(new Stats("Achat de bébé animaux", 0L));
+            stats.add(new Stats("Vente de produit", 0L));
+            stats.add(new Stats("Farm dolars obtenu", 0L));
+            stats.add(new Stats("Plante mis en champs", 0L));
+            stats.add(new Stats("Animaux mis en élevage", 0L));
+            stats.add(new Stats("Dépenses total", 0L));
+            stats.add(new Stats("Dépenses en graine", 0L));
+            stats.add(new Stats("Dépenses en bébé animaux", 0L));
+        }
+    }
 
     public void setStats(ArrayList<Stats> stats) {
         this.stats = stats;
     }
+
     public String getStatsToString() {
         StringBuilder sb = new StringBuilder();
         for (Stats s : stats) {
-            sb.append(String.format("stats, %s, %d", s.getText(),s.getQuantity()));
+            sb.append(String.format("stats, %s, %d\n", s.getText(), s.getQuantity()));
         }
         return sb.toString();
     }
 
-    public void modifyStats(String line, long quantity){
+    public void modifyStats(String line, long quantity) {
         Stats stats = getStats().stream().filter(s -> s.getText().equals(line)).findFirst().get();
         stats.addQuantity(quantity);
     }
-    private void initMarketPrice(){
-        if(currentMarketPrices.isEmpty()) {
+
+    private void initMarketPrice() {
+        if (currentMarketPrices.isEmpty()) {
             for (Product product : Player.getInstance().getProducts()) {
-                currentMarketPrices.put(product, 100.0);
+                currentMarketPrices.put(product, 100.00);
             }
         }
     }
 
-    public void changeMarketPrice(Product product, int quantity){
-        currentMarketPrices.replace(product, currentMarketPrices.get(product) - (quantity*(double)(1/7)));
-        int newPrice = (int) (product.getPrice() * currentMarketPrices.get(product)/100);
+    public void changeMarketPrice(Product product, int quantity) {
+        currentMarketPrices.replace(product, currentMarketPrices.get(product) - (quantity * (1.00 / 7.00)));
+        int newPrice = (int) (product.getInitialPrice() * currentMarketPrices.get(product) / 100.00);
         product.setPrice(newPrice);
-        for(Product p : currentMarketPrices.keySet()){
-            if(!p.equals(product)){
-                currentMarketPrices.replace(p, currentMarketPrices.get(p) + (quantity*(double)(1/7)));
-                int newPrice2 = (int) (p.getPrice() * currentMarketPrices.get(p)/100);
+
+        for (Product p : currentMarketPrices.keySet()) {
+            if (!p.equals(product)) {
+                currentMarketPrices.replace(p, currentMarketPrices.get(p) + (quantity * (double) (1.00 / 7.00)));
+                int newPrice2 = (int) (p.getInitialPrice() * currentMarketPrices.get(p) / 100.00);
                 p.setPrice(newPrice2);
             }
         }
     }
 
-    public void init(){
+    public void init() {
         initStartOrganism();
         initInventary();
         initStats();

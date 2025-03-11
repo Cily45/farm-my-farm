@@ -87,7 +87,7 @@ public abstract class Organism {
 
     protected void getProduction() {
         int quantity = (int) (((Math.random() * range) + 1) * land.getCurrentWeatherRatio());
-        Player.getInstance().getProduct(name).addQuantity(Math.max(0, quantity));
+        Player.getInstance().getProduct(name).addQuantity(Math.max(1, quantity));
         land.removeOrganism(this);
         land.getGridPane().getChildren().remove(button);
     }
