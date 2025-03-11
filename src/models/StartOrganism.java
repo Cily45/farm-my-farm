@@ -1,6 +1,6 @@
 package models;
 
-public  class StartOrganism {
+public class StartOrganism {
     private String type;
     private int price;
     private int quantity;
@@ -11,24 +11,24 @@ public  class StartOrganism {
         this.quantity = quantity;
     }
 
-    public  String getType(){
+    public String getType() {
         return type;
     }
 
-    public  int getQuantity(){
+    public int getQuantity() {
         return quantity;
     }
 
-    public  int getPrice(){
+    public int getPrice() {
         return price;
     }
 
-    public  void setQuantity(int quantity){
+    public void setQuantity(int quantity) {
         this.quantity += quantity;
     }
 
 
-    public  void removeSeed(int quantity){
+    public void removeSeed(int quantity) {
         this.quantity -= quantity;
     }
 

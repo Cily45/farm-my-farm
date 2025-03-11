@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import models.Menu;
 import models.Player;
 import models.Product;
 import models.animal.BabyAnimal;
@@ -24,18 +23,25 @@ public class Inventory {
 
     @FXML
     private TableColumn<Product, String> colName;
+
     @FXML
     private TableColumn<Product, Integer> colQuantity;
+
     @FXML
     private TableView<Seed> table1;
+
     @FXML
     private TableColumn<Seed, String> colName1;
+
     @FXML
     private TableColumn<Seed, Integer> colQuantity1;
+
     @FXML
     private TableView<BabyAnimal> table2;
+
     @FXML
     private TableColumn<BabyAnimal, String> colName2;
+
     @FXML
     private TableColumn<BabyAnimal, Integer> colQuantity2;
 

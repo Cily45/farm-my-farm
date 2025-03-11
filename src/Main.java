@@ -1,4 +1,5 @@
 import models.Menu;
+import models.Organism;
 import models.Player;
 import controllers.StartOrganismInventory;
 import javafx.application.Application;
@@ -19,7 +20,6 @@ import java.util.Objects;
 public class Main extends Application {
     int WIDTH = 600;
     int HEIGHT = 800;
-
     private Parent root;
 
     @FXML
@@ -34,7 +34,6 @@ public class Main extends Application {
         Land land = new Land(sizeLand, sizeLand);
 
         Player.getInstance().setLand(land);
-
         ReloadFarm.ReloadFarm();
         Player.getInstance().init();
 
@@ -47,7 +46,8 @@ public class Main extends Application {
 
         Scene scene = new Scene(root, WIDTH, HEIGHT);
 
-        land.getGridPane().setStyle("-fx-background-color: #1e6e1a;");
+        land.getGridPane().setStyle("-fx-background-color: #1e6e1a;" + "-fx-background-image: url('asset/herbe.jpg'); " +
+                "-fx-background-size: cover; " + "-fx-background-color: transparent;");
 
         land.getGridPane().setOnMouseClicked(event -> {
             int[] pos = GridUtils.getGridPosition((int) event.getX(), (int) event.getY(), land.getSize());
@@ -55,6 +55,7 @@ public class Main extends Application {
             if (land.isFieldEmpty(pos[0], pos[1])) {
                 new StartOrganismInventory().showModal(pos[0], pos[1]);
             }
+
         });
 
         primaryStage.setTitle("Farm my farm");

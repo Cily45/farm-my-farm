@@ -7,10 +7,10 @@ import javafx.util.Duration;
 import models.*;
 
 public class Animal extends Organism {
-    protected long elapsedTime = 0;
     protected boolean isFeed = false;
     protected String food;
     protected String foodNeedImagePath;
+    protected String productImagePath;
     protected String production;
     protected boolean isGetProduction = false;
 
@@ -19,31 +19,38 @@ public class Animal extends Organism {
         super(land, x, y);
     }
 
-    public Animal(Land land, int actualStade, int elapsedTime, int x, int y) {
+    public Animal(Land land, int actualStade, int elapsedTime, int x, int y, boolean isFeed, boolean isGetProduction) {
         super(land, actualStade, elapsedTime, x, y);
+        this.isFeed = isFeed;
+        this.isGetProduction = isGetProduction;
     }
 
     @Override
     protected void growUp() {
         elapsedTime++;
-        if (elapsedTime == timeToUp && actualStade < etape) {
+        if (elapsedTime >= timeToUp && actualStade < etape) {
             actualStade++;
             changeImageButton(stades[actualStade]);
             elapsedTime = 0;
             isFeed = false;
-            changeImageButton(foodNeedImagePath);
+            initFeedButton();
         }
-        if (elapsedTime == timeToUp && actualStade == etape) {
-            changeImageButton("/asset/mouton-0.png");
+
+        if (elapsedTime >= timeToUp && actualStade == etape) {
+            changeImageButton(productImagePath);
             isGetProduction = false;
+
             button.setOnAction(e -> {
+
                 if (!isGetProduction) {
                     getProduction();
                     elapsedTime = 0;
                     isFeed = false;
                     initFeedButton();
                 }
+
             });
+
         }
     }
 
@@ -53,7 +60,6 @@ public class Animal extends Organism {
         timeline.setCycleCount(timeToUp);
         timeline.play();
     }
-
 
     protected void feeding() {
         Product product = Player.getInstance().getProducts().stream().filter(p -> p.getName().equals(food)).findFirst().get();
@@ -66,6 +72,7 @@ public class Animal extends Organism {
         } else {
             Menu.getInstance().setLabel(String.format("Votre inventaire ne comporte pas assez de %s!", food));
         }
+
     }
 
     @Override
@@ -78,13 +85,22 @@ public class Animal extends Organism {
     }
 
     protected void initFeedButton() {
-        changeImageButton(foodNeedImagePath);
+        if (!isFeed) {
+            changeImageButton(foodNeedImagePath);
 
-        button.setOnAction(e -> {
-            if (!isFeed) {
+            button.setOnAction(e -> {
                 feeding();
-            }
-        });
+            });
+
+        }
+    }
+
+    public boolean isFeed() {
+        return isFeed;
+    }
+
+    public boolean isGetProduction() {
+        return isGetProduction;
     }
 
     @Override

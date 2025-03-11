@@ -2,13 +2,12 @@ package utils.save;
 
 import models.Player;
 import models.Land;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
 public class SaveFarm {
     public static String saveFarm() {
-        String filePath = System.getProperty("user.dir") + "/data/save.txt";
+        String filePath = "src/data/save.txt";
         StringBuilder content = new StringBuilder();
         Land land = Player.getInstance().getLand();
 
@@ -19,6 +18,7 @@ public class SaveFarm {
         content.append(Player.getInstance().getBabyAnimalsToString());
         content.append(land.getBlockedGridsToString());
         content.append(Player.getInstance().getStatsToString());
+        content.append(Player.getInstance().getCurrentMarketPriceToString());
 
         try {
             FileWriter fileReader = new FileWriter(filePath);

@@ -5,15 +5,15 @@ import models.Product;
 import models.Stats;
 import models.animal.*;
 import models.vegetable.vegetable.*;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ReloadFarm {
     public static void ReloadFarm() {
-        File file = new File(System.getProperty("user.dir") + "/data/save.txt");
+        File file = new File("src/data/save.txt");
         ArrayList<String> lines = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -36,6 +36,7 @@ public class ReloadFarm {
             ArrayList<String> babyAnimals = new ArrayList<>(lines.stream().filter(line -> line.contains("babyAnimal")).toList());
             ArrayList<String> blockedGrids = new ArrayList<>(lines.stream().filter(line -> line.contains("blockedGrid")).toList());
             ArrayList<String> stats = new ArrayList<>(lines.stream().filter(line -> line.contains("stats")).toList());
+            ArrayList<String> marketPrices = new ArrayList<>(lines.stream().filter(line -> line.contains("marketPrice")).toList());
 
             for (String line : vegetables) {
                 String[] splitLine = line.split(", ");
@@ -103,7 +104,9 @@ public class ReloadFarm {
                                 infoInt(splitLine[2]),
                                 infoInt(splitLine[3]),
                                 infoInt(splitLine[4]),
-                                infoInt(splitLine[5])
+                                infoInt(splitLine[5]),
+                                infoBool(splitLine[6]),
+                                infoBool(splitLine[7])
                         );
 
                         Player.getInstance().getLand().getGridPane().add(cow.getButton(), cow.getX(), cow.getY());
@@ -116,7 +119,9 @@ public class ReloadFarm {
                                 infoInt(splitLine[2]),
                                 infoInt(splitLine[3]),
                                 infoInt(splitLine[4]),
-                                infoInt(splitLine[5])
+                                infoInt(splitLine[5]),
+                                infoBool(splitLine[6]),
+                                infoBool(splitLine[7])
                         );
 
                         Player.getInstance().getLand().getGridPane().add(sheep.getButton(), sheep.getX(), sheep.getY());
@@ -129,7 +134,9 @@ public class ReloadFarm {
                                 infoInt(splitLine[2]),
                                 infoInt(splitLine[3]),
                                 infoInt(splitLine[4]),
-                                infoInt(splitLine[5])
+                                infoInt(splitLine[5]),
+                                infoBool(splitLine[6]),
+                                infoBool(splitLine[7])
                         );
 
                         Player.getInstance().getLand().getGridPane().add(chicken.getButton(), chicken.getX(), chicken.getY());
@@ -142,7 +149,9 @@ public class ReloadFarm {
                                 infoInt(splitLine[2]),
                                 infoInt(splitLine[3]),
                                 infoInt(splitLine[4]),
-                                infoInt(splitLine[5])
+                                infoInt(splitLine[5]),
+                                infoBool(splitLine[6]),
+                                infoBool(splitLine[7])
                         );
 
                         Player.getInstance().getLand().getGridPane().add(horse.getButton(), horse.getX(), horse.getY());
@@ -158,8 +167,7 @@ public class ReloadFarm {
                         infoString(splitLine[1]),
                         infoInt(splitLine[3]),
                         infoInt(splitLine[2]),
-                        infoInt(splitLine[4]))
-                        ;
+                        infoInt(splitLine[4]));
 
                 productsPlayer.add(product);
             }
@@ -189,7 +197,7 @@ public class ReloadFarm {
             ArrayList<Integer[]> blockedGridsPlayer = new ArrayList<>();
             for (String line : blockedGrids) {
                 String[] splitLine = line.split(", ");
-               blockedGridsPlayer.add(new Integer[] {infoInt(splitLine[1]), infoInt(splitLine[2])});
+                blockedGridsPlayer.add(new Integer[]{infoInt(splitLine[1]), infoInt(splitLine[2])});
             }
 
             ArrayList<Stats> statsPlayer = new ArrayList<>();
@@ -198,11 +206,19 @@ public class ReloadFarm {
                 statsPlayer.add(new Stats(splitLine[1], Long.parseLong(splitLine[2])));
             }
 
+            HashMap<Product, Double> marketPricesPlayer = new HashMap<>();
+            for (String line : marketPrices) {
+                String[] splitLine = line.split(", ");
+                marketPricesPlayer.put(productsPlayer.stream().filter(p -> p.getName().equals(infoString(splitLine[1]))).findFirst().get(), infoDouble(splitLine[2]));
+            }
+
+
             Player.getInstance().setSeeds(seedsPlayer);
             Player.getInstance().setBabyAnimals(babyAnimalPlayer);
             Player.getInstance().setProducts(productsPlayer);
             Player.getInstance().getLand().setBlockedGrids(blockedGridsPlayer);
             Player.getInstance().setStats(statsPlayer);
+            Player.getInstance().setCurrentMarketPrice(marketPricesPlayer);
         }
     }
 
@@ -216,5 +232,14 @@ public class ReloadFarm {
         return Integer.parseInt(splitLine[1].trim());
     }
 
+    private static double infoDouble(String line) {
+        String[] splitLine = line.split(": ");
+        return Double.parseDouble(splitLine[1].trim().replace(",", "."));
+    }
+
+    private static boolean infoBool(String line) {
+        String[] splitLine = line.split(": ");
+        return splitLine[1].trim().equals("true");
+    }
 }
 

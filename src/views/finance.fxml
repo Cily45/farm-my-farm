@@ -3,13 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="320.0" prefWidth="319.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Finance">
-   <children>
-      <TableView fx:id="table" layoutX="-1.0" prefHeight="320.0" prefWidth="319.0">
-        <columns>
-          <TableColumn fx:id="textTable" prefWidth="220.0" />
-          <TableColumn fx:id="numberTable" prefWidth="97.0" />
-        </columns>
-      </TableView>
-   </children>
+<AnchorPane prefHeight="320.0" prefWidth="319.0" xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Finance">
+    <children>
+        <TableView fx:id="table" layoutX="-1.0" prefHeight="320.0" prefWidth="319.0">
+            <columns>
+                <TableColumn fx:id="textTable" prefWidth="220.0"/>
+                <TableColumn fx:id="numberTable" prefWidth="97.0"/>
+            </columns>
+        </TableView>
+    </children>
 </AnchorPane>

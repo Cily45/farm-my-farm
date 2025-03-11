@@ -1,6 +1,5 @@
 package models;
 
-import controllers.MarketPlace;
 import models.animal.BabyAnimal;
 import models.vegetable.vegetable.*;
 
@@ -102,6 +101,7 @@ public class Player {
         for (StartOrganism s : seeds) {
             sb.append(String.format("seed, name: %s, quantity: %d, price: %d", s.getType(), s.getQuantity(), s.getPrice())).append("\n");
         }
+
         return sb.toString();
     }
 
@@ -111,6 +111,7 @@ public class Player {
         for (StartOrganism s : babyAnimals) {
             sb.append(String.format("babyAnimal, name: %s, quantity: %d, price: %d", s.getType(), s.getQuantity(), s.getPrice())).append("\n");
         }
+
         return sb.toString();
     }
 
@@ -153,7 +154,6 @@ public class Player {
 
     private void initStats() {
         if (stats.isEmpty()) {
-
             stats.add(new Stats("Achat de graine", 0L));
             stats.add(new Stats("Achat de bébé animaux", 0L));
             stats.add(new Stats("Vente de produit", 0L));
@@ -172,9 +172,11 @@ public class Player {
 
     public String getStatsToString() {
         StringBuilder sb = new StringBuilder();
+
         for (Stats s : stats) {
             sb.append(String.format("stats, %s, %d\n", s.getText(), s.getQuantity()));
         }
+
         return sb.toString();
     }
 
@@ -185,9 +187,11 @@ public class Player {
 
     private void initMarketPrice() {
         if (currentMarketPrices.isEmpty()) {
+
             for (Product product : Player.getInstance().getProducts()) {
                 currentMarketPrices.put(product, 100.00);
             }
+
         }
     }
 
@@ -197,12 +201,29 @@ public class Player {
         product.setPrice(newPrice);
 
         for (Product p : currentMarketPrices.keySet()) {
+
             if (!p.equals(product)) {
                 currentMarketPrices.replace(p, currentMarketPrices.get(p) + (quantity * (double) (1.00 / 7.00)));
                 int newPrice2 = (int) (p.getInitialPrice() * currentMarketPrices.get(p) / 100.00);
                 p.setPrice(newPrice2);
             }
+
         }
+
+    }
+
+    public String getCurrentMarketPriceToString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Product p : currentMarketPrices.keySet()) {
+            sb.append(String.format("marketPrice, name: %s, pourcent: %.2f", p.getName(), currentMarketPrices.get(p))).append("\n");
+        }
+
+        return sb.toString();
+    }
+
+    public void setCurrentMarketPrice(HashMap<Product, Double> currentMarketPrices) {
+        this.currentMarketPrices = currentMarketPrices;
     }
 
     public void init() {

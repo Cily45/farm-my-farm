@@ -6,16 +6,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import models.Menu;
 import models.Player;
-import models.Product;
 import models.Stats;
 
 import java.io.IOException;
@@ -26,6 +22,7 @@ public class Finance {
 
     @FXML
     private TableColumn<Stats, String> textTable;
+
     @FXML
     private TableColumn<Stats, Long> numberTable;
 
@@ -50,14 +47,13 @@ public class Finance {
     @FXML
     public void initialize() {
         ObservableList<Stats> datas = FXCollections.observableArrayList();
-       if (Player.getInstance().getStats() != null) {
+
+        if (Player.getInstance().getStats() != null) {
             datas.addAll(Player.getInstance().getStats());
-       }
-        System.out.println(datas.size());
+        }
 
         table.setItems(datas);
         textTable.setCellValueFactory(new PropertyValueFactory<>("text"));
         numberTable.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-
-        }
+    }
 }

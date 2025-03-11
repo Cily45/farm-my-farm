@@ -6,10 +6,10 @@ public class Weather {
     private double ratio;
     private Image image;
 
-     public Weather(double ratio, Image image) {
-         this.ratio = ratio;
-         this.image = image;
-     }
+    public Weather(double ratio, Image image) {
+        this.ratio = ratio;
+        this.image = image;
+    }
 
     public Image getImage() {
         return image;

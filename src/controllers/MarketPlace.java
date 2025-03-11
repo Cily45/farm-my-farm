@@ -20,7 +20,6 @@ import models.animal.BabyAnimal;
 import models.vegetable.vegetable.Seed;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 public class MarketPlace {
     @FXML
@@ -113,6 +112,7 @@ public class MarketPlace {
                 if ((long) quantity * newValue.getPrice() > Player.getInstance().getMoney()) {
                     quantity = (int) Math.floor((double) Player.getInstance().getMoney() / newValue.getPrice());
                 }
+
                 long price = (long) quantity * newValue.getPrice();
                 Player.getInstance().setMoney(Player.getInstance().getMoney() - price);
                 newValue.setQuantity(quantity);
@@ -137,6 +137,7 @@ public class MarketPlace {
                 if ((long) quantity * newValue.getPrice() > Player.getInstance().getMoney()) {
                     quantity = (int) Math.floor((double) Player.getInstance().getMoney() / newValue.getPrice());
                 }
+
                 long price = (long) quantity * newValue.getPrice();
                 Player.getInstance().setMoney(Player.getInstance().getMoney() - price);
                 newValue.setQuantity(quantity);
@@ -162,6 +163,7 @@ public class MarketPlace {
                 if (quantity >= newValue.getQuantity()) {
                     quantity = newValue.getQuantity();
                 }
+
                 long price = ((long) quantity * newValue.getPrice());
                 Player.getInstance().setMoney(Player.getInstance().getMoney() + price);
                 newValue.removeQuantity(quantity);

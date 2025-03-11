@@ -2,12 +2,9 @@ package models;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.HPos;
-import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 
 
@@ -36,6 +33,7 @@ public abstract class Organism {
         this.y = y;
         this.actualStade = actualStade;
         this.elapsedTime = elapsedTime;
+        this.button = new Button();
     }
 
     public int getX() {
@@ -49,16 +47,18 @@ public abstract class Organism {
     protected void growUp() {
         elapsedTime++;
 
-        if (elapsedTime == timeToUp && actualStade < etape) {
+        if (elapsedTime >= timeToUp && actualStade < etape) {
             actualStade++;
             changeImageButton(stades[actualStade]);
             elapsedTime = 0;
         }
 
         if (actualStade == etape) {
+
             button.setOnAction(e -> {
                 getProduction();
             });
+
         }
     }
 
@@ -75,14 +75,12 @@ public abstract class Organism {
     protected void initButton() {
         button.setLayoutX(x);
         button.setLayoutY(y);
-
+        button.setStyle("-fx-background-image: url('/asset/images.jpg'); " + "-fx-background-color: transparent;");
         button.setMinSize(land.getSize() - 10, land.getSize() - 10);
         button.setMaxSize(land.getSize() - 10, land.getSize() - 10);
         button.setPrefSize(land.getSize() - 10, land.getSize() - 10);
 
-       changeImageButton(stades[actualStade]);
-
-        this.button.setStyle("-fx-background-color: #550808");
+        changeImageButton(stades[actualStade]);
     }
 
     protected void getProduction() {
@@ -93,11 +91,12 @@ public abstract class Organism {
     }
 
     protected void changeImageButton(String image) {
-        ImageView imageView = new ImageView(new Image (image));
-        imageView.setFitHeight(land.getSize()-20);
-        imageView.setFitWidth(land.getSize()-20);
+        ImageView imageView = new ImageView(new Image(image));
+        imageView.setFitHeight(land.getSize() - 20);
+        imageView.setFitWidth(land.getSize() - 20);
         this.button.setGraphic(imageView);
     }
+
     public Long getElapsedTime() {
         return elapsedTime;
     }

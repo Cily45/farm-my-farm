@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import models.animal.Animal;
 
 import java.util.ArrayList;
 
@@ -30,10 +31,12 @@ public class Land {
         this.countRow = width / size;
 
         for (int i = countColumn - 3; i < countRow; i++) {
+
             for (int j = 0; j < countColumn; j++) {
                 blockedGrids.add(new Integer[]{j, i});
             }
         }
+
         init();
     }
 
@@ -75,10 +78,12 @@ public class Land {
             button.setLayoutY(blocked[0]);
             button.setPrefHeight(size - 10);
             button.setPrefWidth(size - 10);
+            button.setStyle("-fx-background-color: #808080;");
             gridPane.add(button, blocked[0], blocked[1]);
             GridPane.setHalignment(button, HPos.CENTER);
             GridPane.setValignment(button, VPos.CENTER);
             button.setOnAction(event -> {
+
                 if (Player.getInstance().getMoney() >= 5000) {
                     Player.getInstance().setMoney(Player.getInstance().getMoney() - 5000);
                     Menu.getInstance().setLabel("Terrain acheté");
@@ -86,6 +91,7 @@ public class Land {
                     gridPane.getChildren().remove(button);
                     blockedGrids.remove(blocked);
                 }
+
             });
         }
     }
@@ -108,7 +114,13 @@ public class Land {
         StringBuilder sb = new StringBuilder();
 
         for (Organism o : organisms) {
-            sb.append(String.format("type: %s, name: %s, actualStade: %d, elapsedTime: %d, x: %d, y: %d", o.getType(), o.getName(), o.getActualStade(), o.getElapsedTime(), o.getX(), o.getY())).append("\n");
+
+            if (o.getType().equals("animal")) {
+                sb.append(String.format("type: %s, name: %s, actualStade: %d, elapsedTime: %d, x: %d, y: %d, isFeed: %b, isGetProduction: %b", o.getType(), o.getName(), o.getActualStade(), o.getElapsedTime(), o.getX(), o.getY(), ((Animal) o).isFeed(), ((Animal) o).isGetProduction())).append("\n");
+            } else {
+                sb.append(String.format("type: %s, name: %s, actualStade: %d, elapsedTime: %d, x: %d, y: %d", o.getType(), o.getName(), o.getActualStade(), o.getElapsedTime(), o.getX(), o.getY())).append("\n");
+            }
+
         }
 
         return sb.toString();

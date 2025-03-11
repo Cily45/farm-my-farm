@@ -28,6 +28,7 @@ public class ProductInventory {
 
     @FXML
     private TableColumn<Product, String> colName;
+
     @FXML
     private TableColumn<Product, Integer> colQuantity;
 
@@ -60,15 +61,17 @@ public class ProductInventory {
             textField.setText(String.valueOf(newValue.getQuantity()));
             sellButton.setOnAction(event -> {
                 int quantity = 0;
-                try{
-                   quantity = Integer.parseInt(textField.getText());
-                }catch (Exception e){
+
+                try {
+                    quantity = Integer.parseInt(textField.getText());
+                } catch (Exception e) {
                     System.out.println("Erreur lors de la saisie");
                 }
 
-                if(quantity > newValue.getQuantity()) {
+                if (quantity > newValue.getQuantity()) {
                     quantity = newValue.getQuantity();
                 }
+
                 Player.getInstance().setMoney((long) quantity * newValue.getPrice());
                 System.out.println((long) quantity * newValue.getPrice());
                 newValue.removeQuantity(quantity);
@@ -77,7 +80,7 @@ public class ProductInventory {
             });
         });
 
-        }
+    }
 
     private void initProductInventory() {
         ObservableList<Product> datas = FXCollections.observableArrayList();

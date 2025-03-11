@@ -17,12 +17,14 @@ public class Sheep extends Animal {
         this.range = 5;
         this.minProduction = 1;
         this.food = "Tournesol";
-        this.foodNeedImagePath = "asset/faim.png";
+        this.foodNeedImagePath = "asset/sunflower-product.png";
+        this.productImagePath = "asset/mouton-laine.png";
         initButton();
+        initTimeline();
     }
 
-    public Sheep(Land land, int actualStade, int elapsedTime, int x, int y) {
-        super(land, actualStade, elapsedTime, x, y);
+    public Sheep(Land land, int actualStade, int elapsedTime, int x, int y, boolean isFeed, boolean isGetProduction) {
+        super(land, actualStade, elapsedTime, x, y, isFeed, isGetProduction);
         this.timeToUp = 30;
         this.stades = new String[]{"asset/mouton-0.png", "asset/mouton-1.png", "asset/mouton-2.png"};
         this.elapsedTime = 0;
@@ -34,9 +36,11 @@ public class Sheep extends Animal {
         this.range = 5;
         this.minProduction = 1;
         this.food = "Tournesol";
-        this.foodNeedImagePath = "asset/faim.png";
+        this.foodNeedImagePath = "asset/sunflower-product.png";
+        this.productImagePath = "asset/mouton-laine.png";
         this.actualStade = actualStade;
         this.elapsedTime = elapsedTime;
         initButton();
+        initTimeline();
     }
 }

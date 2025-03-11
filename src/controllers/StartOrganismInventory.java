@@ -54,6 +54,7 @@ public class StartOrganismInventory {
     public void showModal(int x1, int y1) {
         this.x = x1;
         this.y = y1;
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/StartOrganismInventary.fxml"));
             Parent root = loader.load();
@@ -71,6 +72,7 @@ public class StartOrganismInventory {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     @FXML
@@ -81,6 +83,7 @@ public class StartOrganismInventory {
 
     public void plantSeed(String type) {
         Organism organism = null;
+
         switch (type) {
             case "Maïs":
                 organism = new Maize(Player.getInstance().getLand(), x, y);
@@ -99,6 +102,7 @@ public class StartOrganismInventory {
 
                 break;
         }
+
         Player.getInstance().getLand().getGridPane().add(organism.getButton(), organism.getX(), organism.getY());
         GridPane.setHalignment(organism.getButton(), HPos.CENTER);
         GridPane.setValignment(organism.getButton(), VPos.CENTER);
@@ -108,6 +112,7 @@ public class StartOrganismInventory {
 
     public void installAnimal(String type) {
         Animal animal = null;
+
         switch (type) {
             case "Veau":
                 animal = new Cow(Player.getInstance().getLand(), x, y);
@@ -125,6 +130,7 @@ public class StartOrganismInventory {
                 animal = new Sheep(Player.getInstance().getLand(), x, y);
                 break;
         }
+
         Player.getInstance().getLand().getGridPane().add(animal.getButton(), animal.getX(), animal.getY());
 
         Player.getInstance().getLand().addOrgganism(animal);
@@ -154,7 +160,9 @@ public class StartOrganismInventory {
         colName.setCellValueFactory(new PropertyValueFactory<>("type"));
         colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         initStartOrganismInventories();
+
         table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+
             if (newValue.getQuantity() > 0) {
                 plantButton.setOnAction(event -> {
                     plantSeed(newValue.getType());
@@ -164,14 +172,18 @@ public class StartOrganismInventory {
                     stage.close();
                 });
             }
+
         });
+
     }
 
     private void initBabyAnimalInventory() {
         colName1.setCellValueFactory(new PropertyValueFactory<>("type"));
         colQuantity1.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         initStartOrganismInventories();
+
         table1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+
             if (newValue.getQuantity() > 0) {
                 plantButton1.setOnAction(event -> {
                     installAnimal(newValue.getType());
@@ -181,6 +193,8 @@ public class StartOrganismInventory {
                     stage.close();
                 });
             }
+
         });
+
     }
 }

@@ -107,7 +107,7 @@ public class Menu {
         money.setText(String.format("%d FD", Player.getInstance().getMoney()));
     }
 
-    public void setLabel(String content){
+    public void setLabel(String content) {
         infoLabel.setText(content);
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), e -> infoLabel.setText("")));
         timeline.setCycleCount(1);

@@ -9,7 +9,7 @@ public class SunFlower extends Organism {
         public SunFlower(Land land, int x, int y) {
             super(land, x, y);
             this.timeToUp = 20;
-            this.stades = new String[]{"asset/tournesol-0.png", "asset/tournesol-1.png", "asset/tournesol-2.png","asset/tournesol-3.png","asset/tournesol-4.png"};
+            this.stades = new String[]{"asset/sunflower-0.png", "asset/sunflower-1.png", "asset/sunflower-2.png","asset/sunflower-3.png","asset/sunflower-4.png"};
             this.elapsedTime = 0;
             this.type = "vegetable";
             this.name= "Tournesol";
@@ -23,8 +23,8 @@ public class SunFlower extends Organism {
         public SunFlower(Land land, int actualStade, int elapsedTime, int x, int y) {
             super(land, actualStade, elapsedTime, x, y);
             this.timeToUp = 20;
-            this.stades = new String[]{"asset/tournesol-0.png", "asset/tournesol-1.png", "asset/tournesol-2.png","asset/tournesol-3.png","asset/tournesol-4.png"};
-            this.type = "vegetble";
+            this.stades = new String[]{"asset/sunflower-0.png", "asset/sunflower-1.png", "asset/sunflower-2.png","asset/sunflower-3.png","asset/sunflower-4.png"};
+            this.type = "vegetable";
             this.name= "Tournesol";
             this.button = new Button(stades[actualStade]);
             this.etape = 4;
