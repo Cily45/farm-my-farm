@@ -77,7 +77,7 @@ public class Animal extends Organism {
 
     @Override
     protected void getProduction() {
-        int quantity = (int) (((Math.random() * range) + 1) * land.getCurrentWeatherRatio());
+        int quantity = (int) (((Math.random() * maxProduction) + 1) * land.getCurrentWeatherRatio());
         Player.getInstance().getProduct(production).addQuantity(Math.max(1, quantity));
         changeImageButton(stades[actualStade]);
         elapsedTime = 0;

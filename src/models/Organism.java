@@ -10,7 +10,8 @@ import javafx.util.Duration;
 
 public abstract class Organism {
     protected int timeToUp = 2;
-    protected int x, y, actualStade, range, minProduction;
+    protected int x, y, actualStade, maxProduction;
+    protected int minProduction = 1;
     protected String[] stades = new String[3];
     protected Button button;
     protected Land land;
@@ -84,7 +85,7 @@ public abstract class Organism {
     }
 
     protected void getProduction() {
-        int quantity = (int) (((Math.random() * range) + 1) * land.getCurrentWeatherRatio());
+        int quantity = (int) (((Math.random() * (maxProduction-minProduction)) + minProduction) * land.getCurrentWeatherRatio());
         Player.getInstance().getProduct(name).addQuantity(Math.max(1, quantity));
         land.removeOrganism(this);
         land.getGridPane().getChildren().remove(button);

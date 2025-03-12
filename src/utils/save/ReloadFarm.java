@@ -1,5 +1,6 @@
 package utils.save;
 
+import models.Field;
 import models.Player;
 import models.Product;
 import models.Stats;
@@ -34,7 +35,7 @@ public class ReloadFarm {
             ArrayList<String> products = new ArrayList<>(lines.stream().filter(line -> line.contains("product")).toList());
             ArrayList<String> seeds = new ArrayList<>(lines.stream().filter(line -> line.contains("seed")).toList());
             ArrayList<String> babyAnimals = new ArrayList<>(lines.stream().filter(line -> line.contains("babyAnimal")).toList());
-            ArrayList<String> blockedGrids = new ArrayList<>(lines.stream().filter(line -> line.contains("blockedGrid")).toList());
+            ArrayList<String> lockedFields = new ArrayList<>(lines.stream().filter(line -> line.contains("lockedField")).toList());
             ArrayList<String> stats = new ArrayList<>(lines.stream().filter(line -> line.contains("stats")).toList());
             ArrayList<String> marketPrices = new ArrayList<>(lines.stream().filter(line -> line.contains("marketPrice")).toList());
 
@@ -194,10 +195,11 @@ public class ReloadFarm {
                 babyAnimalPlayer.add(babyAnimal);
             }
 
-            ArrayList<Integer[]> blockedGridsPlayer = new ArrayList<>();
-            for (String line : blockedGrids) {
+            ArrayList<Field> lockedFieldsPlayer = new ArrayList<>();
+            for (String line : lockedFields) {
                 String[] splitLine = line.split(", ");
-                blockedGridsPlayer.add(new Integer[]{infoInt(splitLine[1]), infoInt(splitLine[2])});
+                Field fiel =new Field(infoInt(splitLine[1]), infoInt(splitLine[2]), infoInt(splitLine[3]));
+                lockedFieldsPlayer.add(fiel);
             }
 
             ArrayList<Stats> statsPlayer = new ArrayList<>();
@@ -216,7 +218,7 @@ public class ReloadFarm {
             Player.getInstance().setSeeds(seedsPlayer);
             Player.getInstance().setBabyAnimals(babyAnimalPlayer);
             Player.getInstance().setProducts(productsPlayer);
-            Player.getInstance().getLand().setBlockedGrids(blockedGridsPlayer);
+            Player.getInstance().getLand().setLockedFields(lockedFieldsPlayer);
             Player.getInstance().setStats(statsPlayer);
             Player.getInstance().setCurrentMarketPrice(marketPricesPlayer);
         }

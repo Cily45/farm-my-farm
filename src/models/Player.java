@@ -39,45 +39,45 @@ public class Player {
 
     public void initProducts() {
         if (products.isEmpty()) {
-            Product maize = new Product("Maïs", 40, 0, 40);
+            Product maize = new Product("Maïs", 300, 0, 300);
             products.add(maize);
 
-            Product sunflower = new Product("Tournesol", 20, 0, 20);
+            Product sunflower = new Product("Tournesol", 120, 0, 120);
             products.add(sunflower);
 
-            Product wheat = new Product("Blé", 10, 0, 10);
+            Product wheat = new Product("Blé", 80, 0, 80);
             products.add(wheat);
 
-            Product blueberry = new Product("Myrtille", 30, 0, 30);
+            Product blueberry = new Product("Myrtille", 200, 0, 200);
             products.add(blueberry);
 
-            Product milk = new Product("Lait", 350, 0, 350);
+            Product milk = new Product("Lait", 360, 0, 360);
             products.add(milk);
 
-            Product wool = new Product("Laine", 250, 0, 250);
+            Product wool = new Product("Laine", 135, 0, 135);
             products.add(wool);
 
-            Product egg = new Product("Oeuf", 100, 0, 100);
+            Product egg = new Product("Oeuf", 120, 0, 120);
             products.add(egg);
 
-            Product manure = new Product("Fumier", 300, 0, 300);
+            Product manure = new Product("Fumier", 180, 0, 180);
             products.add(manure);
         }
     }
 
     public void initStartOrganism() {
         if (seeds.isEmpty()) {
-            seeds.add(new Seed("Maïs", 40, 0));
-            seeds.add(new Seed("Tournesol", 20, 0));
-            seeds.add(new Seed("Myrtille", 30, 0));
-            seeds.add(new Seed("Blé", 10, 0));
+            seeds.add(new Seed("Maïs", 300, 0));
+            seeds.add(new Seed("Tournesol", 120, 0));
+            seeds.add(new Seed("Myrtille", 200, 0));
+            seeds.add(new Seed("Blé", 80, 0));
         }
 
         if (babyAnimals.isEmpty()) {
-            babyAnimals.add(new BabyAnimal("Veau", 400, 0));
-            babyAnimals.add(new BabyAnimal("Oeuf", 100, 0));
-            babyAnimals.add(new BabyAnimal("Agneau", 200, 0));
-            babyAnimals.add(new BabyAnimal("Poulain", 300, 0));
+            babyAnimals.add(new BabyAnimal("Veau", 1620, 0));
+            babyAnimals.add(new BabyAnimal("Oeuf", 540, 0));
+            babyAnimals.add(new BabyAnimal("Agneau", 810, 0));
+            babyAnimals.add(new BabyAnimal("Poulain", 1080, 0));
         }
     }
 
@@ -196,14 +196,14 @@ public class Player {
     }
 
     public void changeMarketPrice(Product product, int quantity) {
-        currentMarketPrices.replace(product, currentMarketPrices.get(product) - (quantity * (1.00 / 7.00)));
+        currentMarketPrices.replace(product, currentMarketPrices.get(product) - (quantity * (1.00 / 14.00)));
         int newPrice = (int) (product.getInitialPrice() * currentMarketPrices.get(product) / 100.00);
         product.setPrice(newPrice);
 
         for (Product p : currentMarketPrices.keySet()) {
 
             if (!p.equals(product)) {
-                currentMarketPrices.replace(p, currentMarketPrices.get(p) + (quantity * (double) (1.00 / 7.00)));
+                currentMarketPrices.replace(p, currentMarketPrices.get(p) + (quantity * (double) (1.00 / 14.00)));
                 int newPrice2 = (int) (p.getInitialPrice() * currentMarketPrices.get(p) / 100.00);
                 p.setPrice(newPrice2);
             }
@@ -231,7 +231,7 @@ public class Player {
         initInventary();
         initStats();
         initProducts();
-        land.initBlockedGrids();
+        land.initLockedFields();
         initMarketPrice();
     }
 }

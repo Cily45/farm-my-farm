@@ -21,7 +21,8 @@ public class Land {
     private GridPane gridPane;
     private ArrayList<Organism> organisms = new ArrayList<>();
     private ArrayList<Weather> weathers = new ArrayList<>();
-    private ArrayList<Integer[]> blockedGrids = new ArrayList<>();
+    private ArrayList<Field> lockedFields = new ArrayList<>();
+
     private Weather currentWeather;
 
     public Land(int x, int y) {
@@ -33,8 +34,9 @@ public class Land {
         for (int i = countColumn - 3; i < countRow; i++) {
 
             for (int j = 0; j < countColumn; j++) {
-                blockedGrids.add(new Integer[]{j, i});
+                lockedFields.add(new Field(j,i,5000*(2L *Math.max(j,1)*i)));
             }
+
         }
 
         init();
@@ -71,25 +73,26 @@ public class Land {
         weathers.add(new Weather(1.6, new Image("asset/arc-en-ciel.png")));
     }
 
-    public void initBlockedGrids() {
-        for (Integer[] blocked : blockedGrids) {
-            Button button = new Button("Acheter\n5'000 FD");
-            button.setLayoutX(blocked[0]);
-            button.setLayoutY(blocked[0]);
+    public void initLockedFields() {
+        for (Field field : lockedFields) {
+            Button button = new Button(String.format("Acheter\n%d FD",field.getPrice()));
+            button.setLayoutX(field.getX());
+            button.setLayoutY(field.getY());
             button.setPrefHeight(size - 10);
             button.setPrefWidth(size - 10);
             button.setStyle("-fx-background-color: #808080;");
-            gridPane.add(button, blocked[0], blocked[1]);
+            gridPane.add(button, field.getX(), field.getY());
             GridPane.setHalignment(button, HPos.CENTER);
             GridPane.setValignment(button, VPos.CENTER);
             button.setOnAction(event -> {
 
-                if (Player.getInstance().getMoney() >= 5000) {
-                    Player.getInstance().setMoney(Player.getInstance().getMoney() - 5000);
+                if (Player.getInstance().getMoney() >= field.getPrice()) {
+                    Player.getInstance().setMoney(Player.getInstance().getMoney() - field.getPrice());
                     Menu.getInstance().setLabel("Terrain acheté");
                     Menu.getInstance().refreshMoney();
                     gridPane.getChildren().remove(button);
-                    blockedGrids.remove(blocked);
+                    lockedFields.remove(field);
+
                 }
 
             });
@@ -122,7 +125,6 @@ public class Land {
             }
 
         }
-
         return sb.toString();
     }
 
@@ -143,14 +145,14 @@ public class Land {
     public String getBlockedGridsToString() {
         StringBuilder sb = new StringBuilder();
 
-        for (Integer[] blocked : blockedGrids) {
-            sb.append(String.format("blockedGrid, x: %d, y: %d", blocked[0], blocked[1])).append("\n");
+        for (Field field : lockedFields) {
+            sb.append(String.format("lockedField, x: %d, y: %d, price: %d", field.getX(),field.getY(),field.getPrice())).append("\n");
         }
 
         return sb.toString();
     }
 
-    public void setBlockedGrids(ArrayList<Integer[]> blockedGrids) {
-        this.blockedGrids = blockedGrids;
+    public void setLockedFields(ArrayList<Field> lockedFieldsPlayer) {
+        this.lockedFields = lockedFieldsPlayer;
     }
 }
