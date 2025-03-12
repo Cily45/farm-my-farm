@@ -12,7 +12,7 @@ public class Animal extends Organism {
     protected String foodNeedImagePath;
     protected String productImagePath;
     protected String production;
-    protected boolean isGetProduction = false;
+    protected boolean isGetProduction = true;
 
 
     public Animal(Land land, int x, int y) {

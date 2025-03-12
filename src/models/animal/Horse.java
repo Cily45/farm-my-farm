@@ -15,7 +15,11 @@ public class Horse extends Animal {
         super(land, actualStade, elapsedTime, x, y, isFeed, isGetProduction);
         init();
         initButton();
-        initTimeline();
+
+        if (isFeed) {
+            initTimeline();
+        }
+
     }
 
     private void init() {

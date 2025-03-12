@@ -13,8 +13,13 @@ public class Sheep extends Animal {
 
     public Sheep(Land land, int actualStade, int elapsedTime, int x, int y, boolean isFeed, boolean isGetProduction) {
         super(land, actualStade, elapsedTime, x, y, isFeed, isGetProduction);
+        init();
         initButton();
-        initTimeline();
+
+        if (isFeed) {
+            initTimeline();
+        }
+
     }
 
     private void init() {

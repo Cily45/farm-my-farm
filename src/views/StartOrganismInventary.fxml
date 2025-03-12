@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="304.0" prefWidth="302.0" xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StartOrganismInventory">
+<AnchorPane prefHeight="304.0" prefWidth="302.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StartOrganismInventory">
     <children>
         <TabPane prefHeight="304.0" prefWidth="302.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
@@ -18,22 +14,12 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="183.0" prefWidth="325.0">
                             <children>
-                                <TableView fx:id="table" layoutX="7.0" layoutY="57.0" prefHeight="212.0"
-                                           prefWidth="286.0">
+                                <TableView fx:id="table" layoutX="7.0" layoutY="7.0" prefHeight="262.0" prefWidth="286.0">
                                     <columns>
-                                        <TableColumn fx:id="colName" prefWidth="198.0" text="Graines"/>
-                                        <TableColumn fx:id="colQuantity" minWidth="0.0" prefWidth="96.0"
-                                                     text="Quantités"/>
+                                        <TableColumn fx:id="colName" prefWidth="198.0" text="Graines" />
+                                        <TableColumn fx:id="colQuantity" minWidth="0.0" prefWidth="96.0" text="Quantités" />
                                     </columns>
                                 </TableView>
-                                <Label layoutX="42.0" layoutY="15.0" prefHeight="23.0" prefWidth="141.0"
-                                       text="Sac de graines">
-                                    <font>
-                                        <Font name="Arial" size="20.0"/>
-                                    </font>
-                                </Label>
-                                <Button fx:id="plantButton" layoutX="234.0" layoutY="14.0" mnemonicParsing="false"
-                                        text="Planter"/>
                             </children>
                         </AnchorPane>
                     </content>
@@ -42,22 +28,12 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="183.0" prefWidth="325.0">
                             <children>
-                                <TableView fx:id="table1" layoutX="7.0" layoutY="57.0" prefHeight="212.0"
-                                           prefWidth="286.0">
+                                <TableView fx:id="table1" layoutX="8.0" layoutY="8.0" prefHeight="261.0" prefWidth="286.0">
                                     <columns>
-                                        <TableColumn fx:id="colName1" prefWidth="198.0" text="Animal"/>
-                                        <TableColumn fx:id="colQuantity1" minWidth="0.0" prefWidth="96.0"
-                                                     text="Quantités"/>
+                                        <TableColumn fx:id="colName1" prefWidth="198.0" text="Animal" />
+                                        <TableColumn fx:id="colQuantity1" minWidth="0.0" prefWidth="96.0" text="Quantités" />
                                     </columns>
                                 </TableView>
-                                <Label layoutX="7.0" layoutY="15.0" prefHeight="23.0" prefWidth="203.0"
-                                       text="Sac de bébé animaux">
-                                    <font>
-                                        <Font name="Arial" size="20.0"/>
-                                    </font>
-                                </Label>
-                                <Button fx:id="plantButton1" layoutX="234.0" layoutY="14.0" mnemonicParsing="false"
-                                        text="Elever"/>
                             </children>
                         </AnchorPane>
                     </content>

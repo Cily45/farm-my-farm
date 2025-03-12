@@ -30,11 +30,12 @@ public class Land {
         this.width = x;
         this.countColumn = height / size;
         this.countRow = width / size;
-
+        int multiplier = 1;
         for (int i = countColumn - 3; i < countRow; i++) {
 
             for (int j = 0; j < countColumn; j++) {
-                lockedFields.add(new Field(j,i,5000*(2L *Math.max(j,1)*i)));
+                lockedFields.add(new Field(j,i, (long) 5000 * multiplier));
+                multiplier++;
             }
 
         }
@@ -75,7 +76,7 @@ public class Land {
 
     public void initLockedFields() {
         for (Field field : lockedFields) {
-            Button button = new Button(String.format("Acheter\n%d FD",field.getPrice()));
+            Button button = new Button(String.format("Acheter\n%,d FD",field.getPrice()));
             button.setLayoutX(field.getX());
             button.setLayoutY(field.getY());
             button.setPrefHeight(size - 10);

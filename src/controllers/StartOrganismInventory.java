@@ -28,9 +28,6 @@ public class StartOrganismInventory {
     private TableView<Seed> table;
 
     @FXML
-    private Button plantButton;
-
-    @FXML
     private TableColumn<Product, String> colName;
 
     @FXML
@@ -38,9 +35,6 @@ public class StartOrganismInventory {
 
     @FXML
     private TableView<BabyAnimal> table1;
-
-    @FXML
-    private Button plantButton1;
 
     @FXML
     private TableColumn<Product, String> colName1;
@@ -164,13 +158,11 @@ public class StartOrganismInventory {
         table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 
             if (newValue.getQuantity() > 0) {
-                plantButton.setOnAction(event -> {
-                    plantSeed(newValue.getType());
-                    newValue.removeSeed(1);
-                    table.refresh();
-                    Stage stage = (Stage) table.getScene().getWindow();
-                    stage.close();
-                });
+                plantSeed(newValue.getType());
+                newValue.removeSeed(1);
+                table.refresh();
+                Stage stage = (Stage) table.getScene().getWindow();
+                stage.close();
             }
 
         });
@@ -185,13 +177,11 @@ public class StartOrganismInventory {
         table1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 
             if (newValue.getQuantity() > 0) {
-                plantButton1.setOnAction(event -> {
-                    installAnimal(newValue.getType());
-                    newValue.removeSeed(1);
-                    table.refresh();
-                    Stage stage = (Stage) table1.getScene().getWindow();
-                    stage.close();
-                });
+                installAnimal(newValue.getType());
+                newValue.removeSeed(1);
+                table.refresh();
+                Stage stage = (Stage) table1.getScene().getWindow();
+                stage.close();
             }
 
         });
